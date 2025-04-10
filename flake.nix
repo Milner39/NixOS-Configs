@@ -24,8 +24,7 @@
     system = "x86_64-linux";
 
     # Import packages
-    pkgs = nixpkgs.legacyPackages.${system};
-
+    pkgs = import nixpkgs { inherit system; };
 
     # Additional NixOS inputs
     specialArgs = { inherit inputs hostname username; };
