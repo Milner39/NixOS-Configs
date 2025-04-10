@@ -8,7 +8,6 @@
 
 {
   imports = [
-    inputs.nixos-wsl.nixosModules.wsl
     (import ./wsl.nix args)
   ];
 
