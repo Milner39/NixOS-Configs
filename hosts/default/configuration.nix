@@ -24,7 +24,7 @@
   # === Networking ===
 
   networking = {
-    hostname = hostname;
+    hostName = hostname;
   };
 
   # === Networking ===
