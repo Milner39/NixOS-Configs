@@ -3,7 +3,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     nixos-wsl = {
-      url = "github:nix-community/NixOS-WSL";
+      url = "github:nix-community/nixos-wsl";
       follows = "nixpkgs";
     };
   };
@@ -34,7 +34,7 @@
       inherit system pkgs specialArgs;
 
       modules = [
-        nixos-wsl.nixosModules.default
+        nixos-wsl.nixosModules
         ./hosts/default/configuration.nix
       ];
     };

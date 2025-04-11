@@ -18,6 +18,6 @@
 
       interop.appendWindowsPath = false;
       network.generateHosts = false;
-    }
-  }
+    };
+  };
 }
