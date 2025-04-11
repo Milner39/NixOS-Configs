@@ -34,7 +34,7 @@
       inherit system pkgs specialArgs;
 
       modules = [
-        nixos-wsl.nixosModules.wsl
+        nixos-wsl.nixosModules.default
         ./hosts/default/configuration.nix
       ];
     };
