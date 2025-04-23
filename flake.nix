@@ -4,7 +4,7 @@
 
     nixos-wsl = {
       url = "github:nix-community/nixos-wsl/main";
-      follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
