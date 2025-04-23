@@ -1,14 +1,22 @@
 {
+  lib,
   pkgs,
+
+  # specialArgs
+  inputs,
   hostname,
   username,
-  inputs,
   ...
 } @ args:
 
+let
+  # Extend args with user options
+  args = args // { userData = (import ./users.nix args); };
+in
 {
   imports = [
-    (import ./wsl.nix args)
+    (import ../../modules/wsl/default.nix args)
+    (import ./home-manager.nix args)
   ];
 
 
@@ -33,13 +41,15 @@
 
   # === Users ===
 
-  users.users.${username} = {
-    # Automatically set various options like home directory etc.
-    isNormalUser = true;
-
-    # Add to groups to elevate permissions
-    extraGroups = [ "wheel" ];
-  };
+  # Gets users options from `userData.users.<username>.options`
+  users.users = builtins.mapAttrs
+    (name: user:
+      # Get the `options` attribute, or use an empty set, and extend
+      (user.options or {}) // {
+        isNormalUser = true;
+      }
+    )
+    (args.userData.users);
 
   security.sudo.wheelNeedsPassword = false;
 
@@ -59,7 +69,7 @@
 
   nix = {
     settings = {
-      trusted-users = [username];
+      trusted-users = args.userData.trusted-users;
 
       experimental-features = [ "nix-command" "flakes" ];
       accept-flake-config = true;

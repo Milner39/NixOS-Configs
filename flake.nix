@@ -6,25 +6,29 @@
       url = "github:nix-community/nixos-wsl";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
     self,
     nixpkgs,
     nixos-wsl,
+    home-manager,
     ...
   } @ inputs: let
 
-    # Set hostname and username
+    # Set hostname
     hostname = "wsnix";
-    username = "finnm";
-
 
     # Declare target architecture
     system = "x86_64-linux";
 
     # Import packages
-    pkgs = import nixpkgs { inherit system; };
+    pkgs = nixpkgs.legacyPackages.${system};
 
     # Additional NixOS inputs
     specialArgs = { inherit inputs hostname username; };
@@ -34,7 +38,6 @@
       inherit system pkgs specialArgs;
 
       modules = [
-        nixos-wsl.nixosModules.default
         ./hosts/default/configuration.nix
       ];
     };
