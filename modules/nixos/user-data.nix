@@ -57,6 +57,8 @@ let
 
   # === Eval ===
 
+  _ = lib.traceVal mkUserDataArgs;
+
   evaled = (lib.evalModules {
     modules = [
       { _module.args.mkUserDataArgs = mkUserDataArgs; }
