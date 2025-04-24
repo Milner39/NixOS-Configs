@@ -84,4 +84,4 @@ let
   # === Eval ===
 
 in
-lib.traceVal userData
+lib.traceVal (builtins.deepSeq userData userData)
