@@ -10,7 +10,8 @@
 
 let
   # Extend args with user options
-  args = args // { userData = (import ./users.nix args); };
+  baseArgs = args;
+  args = baseArgs // { userData = (import ./users.nix baseArgs); };
 in
 {
   imports = [
