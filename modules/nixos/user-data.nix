@@ -23,7 +23,7 @@ let
 
   # === Module ===
 
-  module = { mkUserDataArgs, ... }: {
+  module = { ... }: {
     options = {
 
       "users" = lib.mkOption {
@@ -59,7 +59,7 @@ let
 
   evaled = (lib.evalModules {
     modules = [
-      { _module.args.mkUserDataArgs = mkUserDataArgs; }
+      mkUserDataArgs
       module
     ];
   }).config;
