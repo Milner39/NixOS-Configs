@@ -1,4 +1,4 @@
-{ lib, mkUserDataArgs, ...}:
+{ lib, mkUserDataArgs, ... }:
 
 let
   # === Functions ===
@@ -23,7 +23,7 @@ let
 
   # === Module ===
 
-  module = {
+  module = args: {
     options = {
 
       "users" = lib.mkOption {
@@ -58,7 +58,7 @@ let
         settings = userCfg.settings // {
           isNormalUser = true;
         };
-      }) (config.users);
+      }) (args.users);
 
       # Get trusted users
       trusted-users = getTrustedUsers (users);
@@ -76,7 +76,7 @@ let
 
   evalResult = lib.evalModules {
     modules = [
-      { _module.args = { inherit mkUserDataArgs; }; }
+      { _module.args = mkUserDataArgs; }
       module
     ];
   };
