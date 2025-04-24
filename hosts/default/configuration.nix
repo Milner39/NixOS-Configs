@@ -6,11 +6,10 @@
   inputs,
   hostname,
   ...
-} @ args:
+} @ baseArgs:
 
 let
   # Extend args with user options
-  baseArgs = args;
   args = baseArgs // { userData = (import ./users.nix baseArgs); };
 in
 {
