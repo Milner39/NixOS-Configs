@@ -84,4 +84,4 @@ let
   # === Eval ===
 
 in
-userData
+lib.traceVal userData
