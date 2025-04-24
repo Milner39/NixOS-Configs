@@ -53,7 +53,7 @@ let
 
     config = let
       # Apply changes to `users` option
-      users = lib.attrMap (username: userCfg: lib.recursiveUpdate userCfg {
+      users = lib.mapAttrs (username: userCfg: lib.recursiveUpdate userCfg {
         # Add attributes to `<username>.settings`
         settings = userCfg.settings // {
           isNormalUser = true;
