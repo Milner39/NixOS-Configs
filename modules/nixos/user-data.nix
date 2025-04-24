@@ -49,23 +49,6 @@ let
       };
 
     };
-
-
-    config = let
-      # Apply changes to `users` option
-      users = lib.mapAttrs (username: userCfg: lib.recursiveUpdate userCfg {
-        # Add attributes to `<username>.settings`
-        settings = userCfg.settings // {
-          isNormalUser = true;
-        };
-      }) (mkUserDataArgs.users);
-
-      # Get trusted users
-      trusted-users = getTrustedUsers (users);
-    in { inherit
-      users
-      trusted-users;
-    };
   };
 
   # === Module ===
@@ -74,14 +57,31 @@ let
 
   # === Eval ===
 
-  evalResult = lib.evalModules {
+  evaled = (lib.evalModules {
     modules = [
       { _module.args.mkUserDataArgs = mkUserDataArgs; }
       module
     ];
+  }).config;
+
+
+  userData = let
+    # Apply changes to `evaled.users`
+    users = lib.mapAttrs (username: userCfg: lib.recursiveUpdate userCfg {
+      # Add default attributes to `<username>.settings`
+      settings = userCfg.settings // {
+        isNormalUser = true;
+      };
+    }) (evaled.users);
+
+    # Get trusted users
+    trusted-users = getTrustedUsers (users);
+  in { inherit
+    users
+    trusted-users;
   };
 
   # === Eval ===
 
 in
-evalResult.config
+userData
