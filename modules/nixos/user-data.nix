@@ -23,7 +23,7 @@ let
 
   # === Module ===
 
-  module = args: {
+  module = { mkUserDataArgs, ... }: {
     options = {
 
       "users" = lib.mkOption {
@@ -58,7 +58,7 @@ let
         settings = userCfg.settings // {
           isNormalUser = true;
         };
-      }) (args.users);
+      }) (mkUserDataArgs.users);
 
       # Get trusted users
       trusted-users = getTrustedUsers (users);
@@ -76,7 +76,7 @@ let
 
   evalResult = lib.evalModules {
     modules = [
-      { _module.args = mkUserDataArgs; }
+      { _module.args.mkUserDataArgs = mkUserDataArgs; }
       module
     ];
   };
