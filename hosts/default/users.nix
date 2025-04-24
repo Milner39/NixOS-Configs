@@ -9,7 +9,7 @@ let
   mkUserDataArgs = {
     users = {
       finnm = {
-        options = {
+        settings = {
           extraGroups = ["wheel"];
         };
         trusted = true;

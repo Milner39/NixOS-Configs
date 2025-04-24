@@ -57,7 +57,6 @@ let
 
   # === Eval ===
 
-  x = lib.traceVal (builtins.deepSeq mkUserDataArgs mkUserDataArgs);
   evaled = (lib.evalModules {
     modules = [
       { _module.args.mkUserDataArgs = mkUserDataArgs; }
