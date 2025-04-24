@@ -31,7 +31,7 @@
     pkgs = nixpkgs.legacyPackages.${system};
 
     # Additional NixOS inputs
-    specialArgs = { inherit inputs hostname username; };
+    specialArgs = { inherit inputs hostname; };
   
   in {
     nixosConfigurations.default = nixpkgs.lib.nixosSystem {

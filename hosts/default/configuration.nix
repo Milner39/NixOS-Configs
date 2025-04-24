@@ -5,7 +5,6 @@
   # specialArgs
   inputs,
   hostname,
-  username,
   ...
 } @ args:
 

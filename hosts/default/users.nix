@@ -17,7 +17,7 @@ let
     mollys = {};
   };
 in
-makeUserData {
+mkUserData {
   inherit lib;
   mkUserDataArgs = { inherit users; }
 }
