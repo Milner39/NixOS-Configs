@@ -32,7 +32,7 @@ let
 
       "users" = lib.mkOption {
         description = "A map of users by username";
-        required = true;
+        default = null; # required
         type = lib.types.attrsOf (lib.types.submodule {
 
           options = {
