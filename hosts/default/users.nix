@@ -6,18 +6,17 @@
 let
   mkUserData = import ../../modules/nixos/user-data.nix;
 
-  users = {
-    finnm = {
-      options = {
-        extraGroups = ["wheel"];
+  mkUserDataArgs = {
+    users = {
+      finnm = {
+        options = {
+          extraGroups = ["wheel"];
+        };
+        trusted = true;
       };
-      trusted = true;
-    };
 
-    mollys = {};
+      mollys = {};
+    };
   };
 in
-mkUserData {
-  inherit lib;
-  mkUserDataArgs = { inherit users; }
-}
+mkUserData { inherit lib mkUserDataArgs; }
