@@ -4,7 +4,7 @@
 } @ args:
 
 let
-  makeUserData = import ../../modules/nixos/user-data.nix;
+  mkUserData = import ../../modules/nixos/user-data.nix;
 
   users = {
     finnm = {
