@@ -6,7 +6,7 @@
 let
   mkUserData = import ../../modules/nixos/user-data.nix;
 
-  mkUserDataArgs = {
+  userOpts = {
     users = {
       finnm = {
         settings = {
@@ -19,4 +19,6 @@ let
     };
   };
 in
-mkUserData { inherit lib mkUserDataArgs; }
+mkUserData { inherit lib;
+  opts = userOpts;
+}

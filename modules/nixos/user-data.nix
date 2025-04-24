@@ -1,4 +1,4 @@
-{ lib, mkUserDataArgs, ... }:
+{ lib, opts }:
 
 let
   # === Functions ===
@@ -23,12 +23,16 @@ let
 
   # === Module ===
 
-  module = { ... }: {
+  module = {...}: {
+    /* 
+      Defines the types of the `opts` argument for easier docs and setting 
+      required options or default values etc.
+    */
     options = {
 
       "users" = lib.mkOption {
         description = "A map of users by username";
-        default = {};
+        required = true;
         type = lib.types.attrsOf (lib.types.submodule {
 
           options = {
@@ -57,16 +61,18 @@ let
 
   # === Eval ===
 
+  /*
+    Evaluate the `opts` argument and retrieve the results after option values 
+    have been checked and updated with defaults.
+  */
   evaled = (lib.evalModules {
-    modules = [
-      mkUserDataArgs
-      module
-    ];
+    modules = [ opts module ];
   }).config;
 
 
+  # Create the user data set
   userData = let
-    # Apply changes to `evaled.users`
+    # Make changes to `evaled.users`
     users = lib.mapAttrs (username: userCfg: lib.recursiveUpdate userCfg {
       # Add default attributes to `<username>.settings`
       settings = userCfg.settings // {
@@ -75,7 +81,7 @@ let
     }) (evaled.users);
 
     # Get trusted users
-    trusted-users = getTrustedUsers (users);
+    trusted-users = getTrustedUsers (evaled.users);
   in { inherit
     users
     trusted-users;
@@ -84,4 +90,4 @@ let
   # === Eval ===
 
 in
-lib.traceVal (builtins.deepSeq userData userData)
+userData
