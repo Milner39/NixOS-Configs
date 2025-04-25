@@ -16,6 +16,7 @@ in
   imports = [
     (import ../../modules/wsl args)
     (import ./home-manager args)
+    (import ./hyprland.nix args)
   ];
 
 
