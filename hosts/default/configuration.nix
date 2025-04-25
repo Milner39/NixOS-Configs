@@ -14,8 +14,8 @@ let
 in
 {
   imports = [
-    (import ../../modules/wsl/default.nix args)
-    (import ./home-manager.nix args)
+    (import ../../modules/wsl args)
+    (import ./home-manager args)
   ];
 
 
