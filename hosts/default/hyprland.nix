@@ -20,5 +20,5 @@
     # Fix conflict with Home Manager
     # https://wiki.hyprland.org/Useful-Utilities/Systemd-start/#uwsm
     systemd.enable = false;
-  }
+  };
 }
