@@ -8,14 +8,12 @@ let
 
   userOpts = {
     users = {
-      finnm = {
+      FinnM = {
         settings = {
           extraGroups = ["wheel"];
         };
         trusted = true;
       };
-
-      mollys = {};
     };
   };
 in

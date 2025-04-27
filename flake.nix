@@ -11,14 +11,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    hyprland = {
-      url = "github:hyprwm/hyprland";
-    };
-    hyprland-plugins = {
-      url = "github:hyprwm/hyprland-plugins";
-      inputs.hyprland.follows = "hyprland";
-    };
   };
 
   outputs = {
@@ -30,7 +22,7 @@
   } @ inputs: let
 
     # Set hostname
-    hostname = "wsnix";
+    hostname = "WSNix";
 
     # Declare target architecture
     system = "x86_64-linux";
