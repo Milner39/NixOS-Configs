@@ -40,7 +40,7 @@ in
 
   # Gets users options from `userData.users.<username>.options`
   users.users = builtins.mapAttrs
-    (username: userCfg: userCfg.options)
+    (username: userCfg: userCfg.settings)
     (args.userData.users);
 
   security.sudo.wheelNeedsPassword = false;
