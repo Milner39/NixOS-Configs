@@ -40,12 +40,7 @@ in
 
   # Gets users options from `userData.users.<username>.options`
   users.users = builtins.mapAttrs
-    (name: user:
-      # Get the `options` attribute, or use an empty set, and extend
-      (user.options or {}) // {
-        isNormalUser = true;
-      }
-    )
+    (username: userCfg: userCfg.options)
     (args.userData.users);
 
   security.sudo.wheelNeedsPassword = false;
