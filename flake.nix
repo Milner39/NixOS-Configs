@@ -16,7 +16,7 @@
     # Set hostname
     hostname = "WSNix";
 
-    # Declare target architecture
+    # Declare system architecture
     system = "x86_64-linux";
 
     # Import packages
