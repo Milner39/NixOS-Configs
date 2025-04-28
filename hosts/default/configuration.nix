@@ -38,7 +38,7 @@ in
 
   # === Users ===
 
-  # Gets users options from `userData.users.<username>.options`
+  # Gets users options from `userData.users.<username>.settings`
   users.users = builtins.mapAttrs
     (username: userCfg: userCfg.settings)
     (args.userData.users);
