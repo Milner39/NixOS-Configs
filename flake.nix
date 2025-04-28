@@ -6,18 +6,10 @@
       url = "github:nix-community/nixos-wsl";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = {
-    self,
     nixpkgs,
-    nixos-wsl,
-    home-manager,
     ...
   } @ inputs: let
 

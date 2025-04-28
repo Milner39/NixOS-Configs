@@ -1,5 +1,4 @@
 {
-  lib,
   pkgs,
 
   # specialArgs
@@ -97,6 +96,9 @@ in
     systemPackages = with pkgs; [
       # Version control
       git
+
+      # User home environments
+      home-manager
 
       # Secrets
       sops

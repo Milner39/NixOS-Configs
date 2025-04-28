@@ -74,7 +74,10 @@ let
   userData = let
     # Make changes to `evaled.users`
     users = lib.mapAttrs (username: userCfg: lib.recursiveUpdate userCfg {
-      # Add default attributes to `<username>.settings`
+      # Add additional attributes to `users.<username>`
+      username = username;
+
+      # Add default attributes to `users.<username>.settings`
       settings = userCfg.settings // {
         isNormalUser = true;
       };
