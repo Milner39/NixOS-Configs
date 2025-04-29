@@ -23,17 +23,17 @@
         # Tells user they need to press the yubikey button
         cue = true;
       };
+    };
 
-      # Set services that can use 2FA
-      services = {
-        login = {
-          u2fAuth = true;
-          sshAgentAuth = false;
-        };
-        sudo = {
-          u2fAuth = true;
-          sshAgentAuth = true;
-        };
+     # Set services that can use 2FA
+    services = {
+      login = {
+        u2fAuth = true;
+        sshAgentAuth = false;
+      };
+      sudo = {
+        u2fAuth = true;
+        sshAgentAuth = true;
       };
     };
   };
