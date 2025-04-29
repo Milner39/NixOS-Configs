@@ -21,7 +21,7 @@
 
       settings = {
         # Tells user they need to press the yubikey button
-        cue = true;
+        cue = false;  # Customise at the user level
       };
     };
 
