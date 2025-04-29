@@ -4,7 +4,7 @@
 } @ args:
 
 {
-  # Smartcard service
+  # Smartcard reader service
   services.pcscd.enable = true;
 
   # More yubikey customisation options
@@ -28,6 +28,7 @@
       services = {
         login = {
           u2fAuth = true;
+          sshAgentAuth = false;
         };
         sudo = {
           u2fAuth = true;
