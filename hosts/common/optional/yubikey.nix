@@ -32,8 +32,8 @@
         sudo = {
           u2fAuth = true;
           sshAgentAuth = true;
-        }
-      }
+        };
+      };
     };
   };
 }
