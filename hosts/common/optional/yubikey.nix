@@ -12,7 +12,7 @@
 
   # yubikey login / sudo
   security.pam = {
-    # Let users use yubikey to ssh
+    # Let users use yubikey to SSH
     sshAgentAuth.enable = true;
 
     # 2FA
