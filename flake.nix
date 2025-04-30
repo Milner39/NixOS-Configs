@@ -40,19 +40,23 @@
     lib = nixpkgs.lib.extend (self: super: {
       custom = import ./lib { inherit (nixpkgs) lib; };
     });
-  
+
+    baseSpecialArgs = { inherit
+      inputs
+      lib;
+    };
+
   in {
     nixosConfigurations = {
       # === WSNix ===
-      
+
       WSNix = let
         hostname = "WSNix";
 
         system = "x86_64-linux";
         pkgs = nixpkgs.legacyPackages.${system};
 
-        specialArgs = { inherit
-          inputs 
+        specialArgs = baseSpecialArgs // { inherit
           hostname;
         };
 
