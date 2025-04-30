@@ -4,5 +4,5 @@
 }:
 
 {
-  mkUsersData = import ./mk-users-data lib;
+  mkUsersData = import ./mk-users-data.nix lib;
 }
