@@ -1,4 +1,4 @@
-{ lib, opts }:
+lib: opts:
 
 let
   # === Functions ===
@@ -70,8 +70,8 @@ let
   }).config;
 
 
-  # Create the user data set
-  userData = let
+  # Create the users data set
+  usersData = let
     # Make changes to `evaled.users`
     users = lib.mapAttrs (username: userCfg: lib.recursiveUpdate userCfg {
       # Add additional attributes to `users.<username>`
@@ -92,5 +92,4 @@ let
 
   # === Eval ===
 
-in
-userData
+in usersData

@@ -1,37 +1,70 @@
 {
   inputs = {
+    # === Essentials ===
+
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+
+    # === Essentials ===
+
+
+    # === Utilities ===
+
+    # Secret management
+    sops-nix = {
+      url = "github:mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # === Utilities ===
+
+
+    # === Niche ===
 
     nixos-wsl = {
       url = "github:nix-community/nixos-wsl";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # === Niche ===
   };
 
+
+
   outputs = {
+    self,
     nixpkgs,
     ...
   } @ inputs: let
 
-    # Set hostname
-    hostname = "WSNix";
-
-    # Declare system architecture
-    system = "x86_64-linux";
-
-    # Import packages
-    pkgs = nixpkgs.legacyPackages.${system};
-
-    # Additional NixOS inputs
-    specialArgs = { inherit inputs hostname; };
+    # === Extend lib with lib.custom ===
+    lib = nixpkgs.lib.extend (self: super: {
+      custom = import ./lib { inherit (nixpkgs) lib; };
+    });
   
   in {
-    nixosConfigurations.default = nixpkgs.lib.nixosSystem {
-      inherit system pkgs specialArgs;
+    nixosConfigurations = {
+      # === WSNix ===
+      
+      WSNix = let
+        hostname = "WSNix";
 
-      modules = [
-        ./hosts/default/configuration.nix
-      ];
+        system = "x86_64-linux";
+        pkgs = nixpkgs.legacyPackages.${system};
+
+        specialArgs = { inherit
+          inputs 
+          hostname;
+        };
+
+      in nixpkgs.lib.nixosSystem {
+        inherit system pkgs specialArgs;
+
+        modules = [
+          ./hosts/WSNix/configuration.nix
+        ];
+      };
+
+      # === WSNix ===
     };
   };
 }

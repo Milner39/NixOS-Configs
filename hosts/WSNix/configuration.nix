@@ -8,8 +8,8 @@
 } @ baseArgs:
 
 let
-  # Extend args with user options
-  args = baseArgs // { userData = (import ./users.nix baseArgs); };
+  # Extend args with users data
+  args = baseArgs // { usersData = (import ./users.nix baseArgs); };
 in
 {
   imports = [
@@ -39,10 +39,10 @@ in
 
   # === Users ===
 
-  # Gets users options from `userData.users.<username>.settings`
+  # Gets users options from `usersData.users.<username>.settings`
   users.users = builtins.mapAttrs
     (username: userCfg: userCfg.settings)
-    (args.userData.users);
+    (args.usersData.users);
 
   security.sudo.wheelNeedsPassword = false;
 
@@ -62,7 +62,7 @@ in
 
   nix = {
     settings = {
-      trusted-users = args.userData.trusted-users;
+      trusted-users = args.usersData.trusted-users;
 
       experimental-features = [ "nix-command" "flakes" ];
       accept-flake-config = true;

@@ -1,7 +1,7 @@
 {
   # specialArgs
   inputs,
-  userData,
+  usersData,
   ...
 } @ args:
 
@@ -14,8 +14,8 @@
   wsl = {
     enable = true;
 
-    # Set default user to the first user defined in `userData.users`
-    defaultUser = builtins.head (builtins.attrNames userData.users);
+    # Set default user to the first user defined in `usersData.users`
+    defaultUser = builtins.head (builtins.attrNames usersData.users);
 
     # Disable NixOS program shortcuts in windows
     startMenuLaunchers = false;
