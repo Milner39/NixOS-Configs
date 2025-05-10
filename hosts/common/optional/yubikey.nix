@@ -13,7 +13,7 @@
   # yubikey login / sudo
   security.pam = {
     # Let users use yubikey to SSH
-    sshAgentAuth.enable = true;
+    # sshAgentAuth.enable = true;
 
     # 2FA
     u2f = {
@@ -29,12 +29,14 @@
     services = {
       login = {
         u2fAuth = true;
-        sshAgentAuth = false;
+        # sshAgentAuth = false;
       };
       sudo = {
         u2fAuth = true;
-        sshAgentAuth = true;
+        # sshAgentAuth = true;
       };
     };
   };
 }
+
+# https://github.com/EmergentMind/nix-config/blob/dev/modules/hosts/common/yubikey.nix

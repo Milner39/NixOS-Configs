@@ -36,7 +36,7 @@
     ...
   } @ inputs: let
 
-    # === Extend lib with lib.custom ===
+    # Extend lib with lib.custom
     lib = nixpkgs.lib.extend (self: super: {
       custom = import ./lib { inherit (nixpkgs) lib; };
     });
