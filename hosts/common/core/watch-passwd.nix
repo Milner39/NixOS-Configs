@@ -52,7 +52,7 @@ in
       {
         type = "optional";
         module = "pam_exec.so";
-        args = "quiet ${script-updtHshdPwrdFile}/bin/update-hashed-password-file";
+        args = "${script-updtHshdPwrdFile}/bin/update-hashed-password-file";
       }
     ];
   };
