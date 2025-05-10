@@ -9,6 +9,9 @@ lib.custom.users.mkUsersData {
       settings = {
         extraGroups = ["wheel"];
       };
+      password = {
+        useHashedFile = true;
+      };
       trusted = true;
     };
   };

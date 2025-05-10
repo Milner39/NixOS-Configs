@@ -42,6 +42,20 @@ let
               type = lib.types.attrs;
             };
 
+            "password" = lib.mkOption {
+              description = "Password options";
+              default = {};
+              type = lib.types.submodule {
+
+                "useHashedFile" = lib.mkOption {
+                  description = "If `users.users.<username>.hashedPasswordFile` should be set";
+                  default = false;
+                  type = lib.types.bool;
+                };
+
+              };
+            };
+
             "trusted" = lib.mkOption {
               description = "If this user should be added to `nix.settings.trusted-users`";
               default = false;
@@ -74,12 +88,20 @@ let
   usersData = let
     # Make changes to `evaled.users`
     users = lib.mapAttrs (username: userCfg: lib.recursiveUpdate userCfg {
-      # Add additional attributes to `users.<username>`
+
+      # Add for easier access
       username = username;
 
-      # Add default attributes to `users.<username>.settings`
+      # Add additional attributes
       settings = userCfg.settings // {
+
+        # Set up home folder
         isNormalUser = true;
+
+        # Point to hashed password file
+        hashedPasswordFile = if userCfg.password.useHashedFile
+          then /home/${username}/.config/passwd/hashedPassword.txt
+          else null;
       };
     }) (evaled.users);
 
