@@ -4,7 +4,8 @@
 } @ args:
 
 let
-  script-updtHshdPwrdFile = pkgs.writeShellScriptBin "update-hashed-password-file" ''
+  scriptName = "update-hashed-password-file";
+  scriptPath = pkgs.writeShellScriptBin scriptName ''
     #!/usr/bin/env bash
 
     # Exit if any command fails
@@ -52,10 +53,10 @@ in
       {
         type = "optional";
         module = "pam_exec.so";
-        args = "${script-updtHshdPwrdFile}/bin/update-hashed-password-file";
+        args = "${scriptPath}/bin/${scriptName}";
       }
     ];
   };
 
-  environment.systemPackages = [ script-updtHshdPwrdFile ];
+  environment.systemPackages = [ scriptPath ];
 }
