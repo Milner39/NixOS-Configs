@@ -31,7 +31,7 @@ let
     IFS=':' read -ra fields <<< "$shadow_entry"
 
     # Get the hashed password
-    hash="''${fields[1]}"
+    hash="${fields[1]}"
 
 
     # Write the new hash
