@@ -98,7 +98,7 @@ let
 
         # Point to hashed password file
         hashedPasswordFile = if userCfg.password.useHashedFile
-          then /home/${username}/.config/passwd/hashedPassword.txt
+          then "/home/${username}/.config/passwd/hashedPassword.txt"
           else null;
       };
     }) (evaled.users);
