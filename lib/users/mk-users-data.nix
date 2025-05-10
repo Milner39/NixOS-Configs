@@ -34,7 +34,6 @@ let
         description = "A map of users by username";
         default = null; # required
         type = lib.types.attrsOf (lib.types.submodule {
-
           options = {
             "settings" = lib.mkOption {
               description = "Settings for `users.users.<username>`";
@@ -46,13 +45,13 @@ let
               description = "Password options";
               default = {};
               type = lib.types.submodule {
-
-                "useHashedFile" = lib.mkOption {
-                  description = "If `users.users.<username>.hashedPasswordFile` should be set";
-                  default = false;
-                  type = lib.types.bool;
+                options = {
+                  "useHashedFile" = lib.mkOption {
+                    description = "If `users.users.<username>.hashedPasswordFile` should be set";
+                    default = false;
+                    type = lib.types.bool;
+                  };
                 };
-
               };
             };
 
@@ -62,7 +61,6 @@ let
               type = lib.types.bool;
             };
           };
-
         });
       };
 
