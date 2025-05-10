@@ -5,5 +5,5 @@
 {
   imports = [
     ./watch-passwd.nix
-  ]
+  ];
 }
