@@ -13,11 +13,11 @@ let
     # Get the user that had their password changed (first arg)
     target_user="$1"
 
-    echo DEBUG: $USER $target_user $SUDO_USER
+    echo "DEBUG: $USER, $(whoami), $SUDO_USER, $target_user" >&2
 
     # Check if invoked by non-sudoer or non-target user
     if [ -n "$SUDO_USER" ] && [ "$target_user" != "$SUDO_USER" ]; then
-      echo "${updateFileScriptName}: You may not update the hashed password file for $target_user."
+      echo "${updateFileScriptName}: You may not update the hashed password file for $target_user." >&2
       exit 1
     fi
     # Prevents non-sudoers from triggering updates for other users
