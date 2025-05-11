@@ -89,3 +89,14 @@ in
     }];
   }];
 }
+
+
+# TEST CASES
+
+# passwd
+# passwd <user>
+# sudo passwd
+# sudo passwd <user>
+# update-hashed-password-file
+# update-hashed-password-file <user>
+# sudo update-hashed-password-file <user>
