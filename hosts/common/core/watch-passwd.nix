@@ -77,13 +77,14 @@ in
   environment.shellAliases.passwd = "${wrapperScript}/bin/${wrapperScriptName}";
   environment.systemPackages = [ wrapperScript updateFileScript ];
 
-  # Let update hashed password file script be run as sudo by anyone
+  # Let update hashed password file script be run as root by anyone
   # NOTE: Security measures have been made within the script
   security.sudo.extraRules = [{
     users = [ "ALL" ];
     commands = [{
       command = "${updateFileScript}/bin/${updateFileScriptName}";
-      options = [ "NOPASSWD" ];
+      options = [ "NOPASSWD" "SETENV" ];
+      runAs = "root";
     }];
   }];
 }
