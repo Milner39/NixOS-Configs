@@ -4,16 +4,16 @@
 } @ args:
 
 let
-  scriptName = "update-hashed-password-file";
-  scriptPath = pkgs.writeShellScriptBin scriptName ''
+  updateScriptName = "update-hashed-password-file";
+  updateScript = pkgs.writeShellScriptBin updateScriptName ''
     #!/usr/bin/env bash
 
     # Exit if any command fails
     set -euo pipefail
 
 
-    # Get the user that changed their password
-    user="$PAM_USER"
+    # Get the user that had their password changed
+    user="$1"
 
     # Get path to hashed password file
     target_file="/home/$user/.config/passwd/hashedPassword.txt"
@@ -42,21 +42,39 @@ let
     chown "$user:$(id -gn "$user")" "$target_file"
     chmod 600 "$target_file"
   '';
+
+
+  wrapperScriptName = "passwd";
+  wrapperScript = pkgs.writeShellScriptBin wrapperScriptName ''
+    #!/usr/bin/env bash
+
+    # Exit if any command fails
+    set -euo pipefail
+
+
+    # Run the real passwd command
+    /run/wrappers/bin/passwd "$@"
+
+    # Exit if passwd failed
+    if [[ $? -ne 0 ]]; then
+      exit $?
+    fi
+
+
+    # Get the target user (first arg or current user)
+    target_user="''${1:-$(whoami)}"
+
+    # Run the update script
+    ${updateScript}/bin/${updateScriptName} "$target_user"
+  '';
 in
 {
-  security.pam.services.passwd = {
-    password = [
-      # Update `/etc/shadow` like usual
-      { type = "required"; module = "pam_unix.so"; }
-
-      # Run custom script
-      {
-        type = "optional";
-        module = "pam_exec.so";
-        args = "${scriptPath}/bin/${scriptName}";
-      }
-    ];
+  # Replace `passwd` with wrapper script
+  environment.systemPackages = [ wrapperScript ];
+  environment.shellAliases = {
+    passwd = "${wrapperScript}/bin/${wrapperScriptName}";
   };
-
-  environment.systemPackages = [ scriptPath ];
+  security.wrappers.passwd = {
+    source = "${wrapperScript}/bin/${wrapperScriptName}";
+  }
 }
