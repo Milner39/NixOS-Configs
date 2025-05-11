@@ -5,6 +5,6 @@
 
 {
   imports = [
-    (import ./watch-passwd.nix args)
+    (import ./passwd.nix args)
   ];
 }
