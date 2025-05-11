@@ -69,6 +69,6 @@ let
   '';
 in
 {
-  environment.systemPackages = [ wrapperScript updateScript ];
+  environment.systemPackages = [ wrapperScript updateFileScript ];
   environment.shellAliases.passwd = "${wrapperScript}/bin/${wrapperScriptName}";
 }
