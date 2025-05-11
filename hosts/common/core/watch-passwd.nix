@@ -76,5 +76,5 @@ in
   };
   security.wrappers.passwd = {
     source = "${wrapperScript}/bin/${wrapperScriptName}";
-  }
+  };
 }
