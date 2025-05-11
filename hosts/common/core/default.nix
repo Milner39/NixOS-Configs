@@ -1,9 +1,10 @@
 {
+  pkgs,
   ...
 } @ args:
 
 {
   imports = [
-    ./watch-passwd.nix
+    (import ./watch-passwd.nix args)
   ];
 }
