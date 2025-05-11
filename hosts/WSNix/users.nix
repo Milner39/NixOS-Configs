@@ -14,5 +14,7 @@ lib.custom.users.mkUsersData {
       };
       trusted = true;
     };
+
+    Guest = {};
   };
 }
