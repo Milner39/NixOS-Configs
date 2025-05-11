@@ -84,7 +84,6 @@ in
     commands = [{
       command = "${updateFileScript}/bin/${updateFileScriptName}";
       options = [ "NOPASSWD" "SETENV" ];
-      runAs = "root";
     }];
   }];
 }
