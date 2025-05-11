@@ -13,10 +13,6 @@ let
     # Get the user that had their password changed (first arg)
     target_user="$1"
 
-
-    echo "DEBUG 2: $USER, $(whoami), $SUDO_USER, $target_user" >&2
-
-
     # Check if invoked by non-sudoer or non-target user
     if [ -n "$SUDO_USER" ] && [ "$target_user" != "$SUDO_USER" ]; then
       echo "${updateFileScriptName}: You may not update the hashed password file for $target_user." >&2
@@ -57,9 +53,6 @@ let
   wrapperScript = pkgs.writeShellScriptBin wrapperScriptName ''
     # Exit if any command fails
     set -euo pipefail
-
-
-    echo "DEBUG 1: $USER, $(whoami), $SUDO_USER" >&2
 
 
     # Run the real passwd command
