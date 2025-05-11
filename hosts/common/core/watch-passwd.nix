@@ -4,15 +4,15 @@
 } @ args:
 
 let
-  updateScriptName = "update-hashed-password-file";
-  updateScript = pkgs.writeShellScriptBin updateScriptName ''
+  updateFileScriptName = "update-hashed-password-file";
+  updateFileScript = pkgs.writeShellScriptBin updateFileScriptName ''
     #!/usr/bin/env bash
 
     # Exit if any command fails
     set -euo pipefail
 
 
-    # Get the user that had their password changed
+    # Get the user that had their password changed (first arg)
     user="$1"
 
     # Get path to hashed password file
@@ -44,7 +44,7 @@ let
   '';
 
 
-  wrapperScriptName = "passwd";
+  wrapperScriptName = "passwd-persist";
   wrapperScript = pkgs.writeShellScriptBin wrapperScriptName ''
     #!/usr/bin/env bash
 
@@ -65,12 +65,10 @@ let
     target_user="''${1:-$(whoami)}"
 
     # Run the update script
-    ${updateScript}/bin/${updateScriptName} "$target_user"
+    ${updateFileScript}/bin/${updateFileScriptName} "$target_user"
   '';
 in
 {
-  # Replace `passwd` with wrapper script
   environment.systemPackages = [ wrapperScript updateScript ];
   environment.shellAliases.passwd = "${wrapperScript}/bin/${wrapperScriptName}";
-  environment.pathsToLink = [ "/bin" ];
 }
