@@ -7,7 +7,7 @@ let
   updateFileScriptName = "update-hashed-password-file";
   updateFileScript = pkgs.writeShellScriptBin updateFileScriptName ''
     # Exit if any command fails
-    set -euo pipefail
+    set -euox pipefail
 
 
     # Get the user that had their password changed (first arg)
