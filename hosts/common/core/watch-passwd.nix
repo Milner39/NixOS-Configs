@@ -17,7 +17,7 @@ let
 
     # Check if invoked by non-sudoer or non-target user
     if [ -n "$SUDO_USER" ] && [ "$target_user" != "$SUDO_USER" ]; then
-      echo "Error: Not authorized to update $target_user's hashed password file."
+      echo "${updateFileScriptName}: You may not update the hashed password file for $target_user."
       exit 1
     fi
     # Prevents non-sudoers from triggering updates for other users
@@ -85,7 +85,7 @@ in
     users = [ "ALL" ];
     commands = [{
       command = "${updateFileScript}/bin/${updateFileScriptName}";
-      options = [ "NOPASSWD" "SETENV" ];
+      options = [ "NOPASSWD" ];
     }];
   }];
 }
