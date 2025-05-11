@@ -74,7 +74,4 @@ in
   environment.shellAliases = {
     passwd = "${wrapperScript}/bin/${wrapperScriptName}";
   };
-  security.wrappers.passwd = {
-    source = "${wrapperScript}/bin/${wrapperScriptName}";
-  };
 }
