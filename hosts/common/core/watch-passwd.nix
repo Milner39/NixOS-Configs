@@ -13,7 +13,9 @@ let
     # Get the user that had their password changed (first arg)
     target_user="$1"
 
-    echo "DEBUG: $USER, $(whoami), $SUDO_USER, $target_user" >&2
+
+    echo "DEBUG 2: $USER, $(whoami), $SUDO_USER, $target_user" >&2
+
 
     # Check if invoked by non-sudoer or non-target user
     if [ -n "$SUDO_USER" ] && [ "$target_user" != "$SUDO_USER" ]; then
@@ -57,6 +59,9 @@ let
     set -euo pipefail
 
 
+    echo "DEBUG 1: $USER, $(whoami), $SUDO_USER >&2
+
+
     # Run the real passwd command
     /run/wrappers/bin/passwd "$@"
 
@@ -75,11 +80,19 @@ let
   '';
 in
 {
-  # Alias passwd to wrapper script
-  environment.shellAliases.passwd = "${wrapperScript}/bin/${wrapperScriptName}";
+  # Add scripts to environment
   environment.systemPackages = [ wrapperScript updateFileScript ];
 
-  # Let update hashed password file script be run as root by anyone
+  # Add "/etc/profiles/bin" to path (higher priority than /run/wrappers/bin)
+  environment.profileRelativeEnvVars.PATH = [ "/etc/profiles/bin" ];
+
+  # Create wrapper
+  environment.etc."profiles/bin/passwd" = {
+    source = "${wrapperScript}/bin/${wrapperScriptName}";
+    mode = "0755";
+  };
+
+  # Let update-hashed-password-file script be run as root by anyone
   # NOTE: Security measures have been made within the script
   security.sudo.extraRules = [{
     users = [ "ALL" ];
