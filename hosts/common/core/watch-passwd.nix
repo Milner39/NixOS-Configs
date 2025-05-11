@@ -59,7 +59,7 @@ let
     set -euo pipefail
 
 
-    echo "DEBUG 1: $USER, $(whoami), $SUDO_USER >&2
+    echo "DEBUG 1: $USER, $(whoami), $SUDO_USER" >&2
 
 
     # Run the real passwd command
