@@ -70,8 +70,7 @@ let
 in
 {
   # Replace `passwd` with wrapper script
-  environment.systemPackages = [ wrapperScript ];
-  environment.shellAliases = {
-    passwd = "${wrapperScript}/bin/${wrapperScriptName}";
-  };
+  environment.systemPackages = [ wrapperScript updateScript ];
+  environment.shellAliases.passwd = "${wrapperScript}/bin/${wrapperScriptName}";
+  environment.pathsToLink = [ "/bin" ];
 }
