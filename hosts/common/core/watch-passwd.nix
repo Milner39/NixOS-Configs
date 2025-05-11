@@ -7,11 +7,13 @@ let
   updateFileScriptName = "update-hashed-password-file";
   updateFileScript = pkgs.writeShellScriptBin updateFileScriptName ''
     # Exit if any command fails
-    set -euox pipefail
+    set -euo pipefail
 
 
     # Get the user that had their password changed (first arg)
     target_user="$1"
+
+    echo $USER $target_user $SUDO_USER
 
     # Check if invoked by non-sudoer or non-target user
     if [ -n "$SUDO_USER" ] && [ "$target_user" != "$SUDO_USER" ]; then
