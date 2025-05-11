@@ -83,14 +83,8 @@ in
   # Add scripts to environment
   environment.systemPackages = [ wrapperScript updateFileScript ];
 
-  # Add "/etc/profiles/bin" to path (higher priority than /run/wrappers/bin)
-  environment.profileRelativeEnvVars.PATH = [ "/etc/profiles/bin" ];
-
-  # Create wrapper
-  environment.etc."profiles/bin/passwd" = {
-    source = "${wrapperScript}/bin/${wrapperScriptName}";
-    mode = "0755";
-  };
+  # Alias passwd to wrapper script
+  environment.shellAliases.passwd = "${wrapperScript}/bin/${wrapperScriptName}";
 
   # Let update-hashed-password-file script be run as root by anyone
   # NOTE: Security measures have been made within the script
