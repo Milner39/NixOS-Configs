@@ -6,8 +6,6 @@
 let
   updateFileScriptName = "update-hashed-password-file";
   updateFileScript = pkgs.writeShellScriptBin updateFileScriptName ''
-    #!/usr/bin/env bash
-
     # Exit if any command fails
     set -euo pipefail
 
@@ -46,8 +44,6 @@ let
 
   wrapperScriptName = "passwd-persist";
   wrapperScript = pkgs.writeShellScriptBin wrapperScriptName ''
-    #!/usr/bin/env bash
-
     # Exit if any command fails
     set -euo pipefail
 
