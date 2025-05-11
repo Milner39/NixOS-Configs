@@ -11,11 +11,18 @@ let
 
 
     # Get the user that had their password changed (first arg)
-    user="$1"
+    target_user="$1"
+
+    # Check if invoked by non-sudoer or non-target user
+    if [ -n "$SUDO_USER" ] && [ "$target_user" != "$SUDO_USER" ]; then
+      echo "Error: Not authorized to update $target_user's hashed password file."
+      exit 1
+    fi
+    # Prevents non-sudoers from triggering updates for other users
+
 
     # Get path to hashed password file
-    target_file="/home/$user/.config/passwd/hashedPassword.txt"
-
+    target_file="/home/$target_user/.config/passwd/hashedPassword.txt"
 
     # Exit early if the target file does not exist
     if [[ ! -f "$target_file" ]]; then
@@ -23,8 +30,8 @@ let
     fi
 
 
-    # Get the entry for the user
-    shadow_entry=$(grep "^$user:" /etc/shadow)
+    # Get the entry for the target user
+    shadow_entry=$(grep "^$target_user:" /etc/shadow)
 
     # Split the entry into fields by ":"
     IFS=':' read -ra fields <<< "$shadow_entry"
@@ -37,7 +44,7 @@ let
     echo "$hash" > "$target_file"
 
     # Set secure permissions
-    chown "$user:$(id -gn "$user")" "$target_file"
+    chown "$target_user:$(id -gn "$target_user")" "$target_file"
     chmod 600 "$target_file"
   '';
 
@@ -55,16 +62,28 @@ let
     if [[ $? -ne 0 ]]; then
       exit $?
     fi
+    # This is extremely important because passwd does all the authentication
 
 
     # Get the target user (first arg or current user)
     target_user="''${1:-$(whoami)}"
 
     # Run the update script
-    ${updateFileScript}/bin/${updateFileScriptName} "$target_user"
+    sudo ${updateFileScript}/bin/${updateFileScriptName} "$target_user"
   '';
 in
 {
-  environment.systemPackages = [ wrapperScript updateFileScript ];
+  # Alias passwd to wrapper script
   environment.shellAliases.passwd = "${wrapperScript}/bin/${wrapperScriptName}";
+  environment.systemPackages = [ wrapperScript updateFileScript ];
+
+  # Let update hashed password file script be run as sudo by anyone
+  # NOTE: Security measures have been made within the script
+  security.sudo.extraRules = [{
+    users = [ "ALL" ];
+    commands = [{
+      command = "${updateFileScript}/bin/${updateFileScriptName}";
+      options = [ "NOPASSWD" ];
+    }];
+  }];
 }
