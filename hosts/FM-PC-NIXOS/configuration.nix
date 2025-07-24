@@ -205,6 +205,9 @@ in
     firefox
     brave
 
+    # Fixes
+    xdg-utils
+
     # Other
   ];
   
