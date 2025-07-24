@@ -1,4 +1,4 @@
-{ 
+{
   pkgs,
   
   # specialArgs
@@ -61,7 +61,16 @@ in
       };
     };
   };
+  
+  # Enable the OpenSSH daemon.
+  # services.openssh.enable = true;
 
+  # Open ports in the firewall.
+  # networking.firewall.allowedTCPPorts = [ ... ];
+  # networking.firewall.allowedUDPPorts = [ ... ];
+  # Or disable the firewall altogether.
+  # networking.firewall.enable = false;
+  
   # === Networking ===
 
 
@@ -73,7 +82,7 @@ in
     locale = "en_GB.UTF-8";
   in
   {
-    defaultCharset = "UTF-8";
+    # defaultCharset = "UTF-8";
     defaultLocale = locale;
     extraLocaleSettings = {
       LC_ADDRESS = "en_GB.UTF-8";
@@ -97,6 +106,11 @@ in
   users.users = builtins.mapAttrs
     (username: userCfg: userCfg.settings)
     (args.usersData.users);
+  
+  # For password changes to persist:
+  # - `usersData.users.<username>.password.usehashedFile` must be true
+  # - `passwd-persist` cmd must be used to change passwords
+  users.mutableUsers = false;
   
   #security.sudo.wheelNeedsPassword = false;
   
@@ -173,40 +187,27 @@ in
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "25.05"; # Did you read the comment?
-
-
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
   
   # === Nix ===
 
 
-
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
+  # === Global Environment ===
+  
   environment.systemPackages = with pkgs; [
-    wget
+    # Version control
     git
     gh
+    
+    # Editors
+    vscode
+    
+    # Browsers
+    firefox
+    brave
+
+    # Other
   ];
+  
+  # === Global Environment ===
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
 }

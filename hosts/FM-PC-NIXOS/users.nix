@@ -8,7 +8,7 @@ lib.custom.users.mkUsersData {
     FinnM = {
       settings = {
         description = "Finn Milner";
-        extraGroups = ["wheel", "networkmanager" ];
+        extraGroups = [ "wheel" "networkmanager" ];
       };
       password = {
         useHashedFile = true;
@@ -16,6 +16,11 @@ lib.custom.users.mkUsersData {
       trusted = true;
     };
 
-    Guest = {};
+    Guest = {
+      settings = {
+        # Public account so safe to define password
+        password = "";
+      };
+    };
   };
 }

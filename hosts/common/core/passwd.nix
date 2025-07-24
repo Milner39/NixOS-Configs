@@ -91,12 +91,5 @@ in
 }
 
 
-# TEST CASES
-
-# passwd
-# passwd <user>
-# sudo passwd
-# sudo passwd <user>
-# update-hashed-password-file
-# update-hashed-password-file <user>
-# sudo update-hashed-password-file <user>
+# There is currently a problem when trying to update passwords as with sudo for
+# other users
