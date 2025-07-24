@@ -59,7 +59,7 @@
           config.allowUnfree = true;
         };
         
-	specialArgs = baseSpecialArgs // { inherit
+	      specialArgs = baseSpecialArgs // { inherit
           hostname;
         };
       in nixpkgs.lib.nixosSystem {

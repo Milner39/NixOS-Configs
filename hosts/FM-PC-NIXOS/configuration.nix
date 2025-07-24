@@ -193,6 +193,7 @@ in
 
   # === Global Environment ===
   
+  # Packages
   environment.systemPackages = with pkgs; [
     # Version control
     git
@@ -210,6 +211,18 @@ in
 
     # Other
   ];
+
+  # Programs
+  programs = {
+    # Editors
+    # vscode = {
+    #   enable = true;
+    #   package = pkgs.vscode;
+    # };
+
+    #Browsers
+
+  };
   
   # === Global Environment ===
 
