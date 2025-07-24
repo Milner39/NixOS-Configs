@@ -48,6 +48,27 @@
 
   in {
     nixosConfigurations = {
+      # === FM-PC-NIXOS ===
+      
+      "FM-PC-NIXOS" = let
+        hostname = "FM-PC-NIXOS";
+        
+        system = "x86_64-linux";
+        pkgs = nixpkgs.legacyPackages.${system};
+        
+	specialArgs = baseSpecialArgs // { inherit
+          hostname;
+        };
+      in nixpkgs.lib.nixosSystem {
+        inherit system pkgs specialArgs;
+
+        modules = [
+          ./hosts/FM-PC-NIXOS/configuration.nix
+        ];
+      };
+      
+      # === FM-PC-NIXOS ===
+      
       # === WSNix ===
 
       WSNix = let

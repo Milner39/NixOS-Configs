@@ -7,7 +7,8 @@ lib.custom.users.mkUsersData {
   users = {
     FinnM = {
       settings = {
-        extraGroups = ["wheel"];
+        description = "Finn Milner";
+        extraGroups = ["wheel", "networkmanager" ];
       };
       password = {
         useHashedFile = true;
