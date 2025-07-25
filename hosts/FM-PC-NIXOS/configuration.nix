@@ -18,6 +18,7 @@ in
     
     # Add modules
     (import ../common/core/default.nix args)
+    (import ../common/optional/hyprland.nix args)
   ];
 
 
@@ -74,6 +75,23 @@ in
   # === Networking ===
 
 
+  # === Users ===
+
+  # Gets users options from `usersData.users.<username>.settings`
+  users.users = builtins.mapAttrs
+    (username: userCfg: userCfg.settings)
+    (args.usersData.users);
+  
+  # For password changes to persist:
+  # - `usersData.users.<username>.password.usehashedFile` must be true
+  # - `passwd-persist` cmd must be used to change passwords
+  users.mutableUsers = false;
+  
+  #security.sudo.wheelNeedsPassword = false;
+  
+  # === Users ===
+  
+  
   # === Locale ===
   
   time.timeZone = "Europe/London";
@@ -96,50 +114,15 @@ in
       LC_TIME = "en_GB.UTF-8";
     };
   };
-  
-  # === Locale ===
-  
-  
-  # === Users ===
-
-  # Gets users options from `usersData.users.<username>.settings`
-  users.users = builtins.mapAttrs
-    (username: userCfg: userCfg.settings)
-    (args.usersData.users);
-  
-  # For password changes to persist:
-  # - `usersData.users.<username>.password.usehashedFile` must be true
-  # - `passwd-persist` cmd must be used to change passwords
-  users.mutableUsers = false;
-  
-  #security.sudo.wheelNeedsPassword = false;
-  
-  # === Users ===
-
-
-  # ||| TEMP |||
-  
-  # Enable the X11 windowing system
-  services.xserver.enable = true;
-
-  # Enable the GNOME Desktop Environment
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
-
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "gb";
-    variant = "";
-  };
 
   # Configure console keymap
   console.keyMap = "uk";
   
+  # === Locale ===
   
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
-
-  # Enable sound
+  
+  # === Audio ===
+  
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
@@ -147,18 +130,14 @@ in
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
+    jack.enable = true;
 
     # use the example session manager (no others are packaged yet so this is enabled by default,
     # no need to redefine it in your config for now)
-    #media-session.enable = true;
+    # media-session.enable = true;
   };
 
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
-
-  # ||| TEMP |||
+  # === Audio ===
 
 
   # === Nix ===
@@ -206,21 +185,11 @@ in
     firefox
     brave
 
-    # Fixes
-    xdg-utils
-
     # Other
   ];
 
   # Programs
   programs = {
-    # Editors
-    # vscode = {
-    #   enable = true;
-    #   package = pkgs.vscode;
-    # };
-
-    #Browsers
 
   };
   
