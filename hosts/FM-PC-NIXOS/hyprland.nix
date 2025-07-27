@@ -11,7 +11,7 @@
   # === System Specific Tweaks
 
   # Using systemd so use Universal Wayland Session Manager for better support
-  programs.hyprland.withUWSM;
+  programs.hyprland.withUWSM = true;
 
   # === System Specific Tweaks
 
