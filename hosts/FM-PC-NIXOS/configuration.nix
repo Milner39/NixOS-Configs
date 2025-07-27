@@ -18,7 +18,7 @@ in
     
     # Add modules
     (import ../common/core/default.nix args)
-    (import ../common/optional/hyprland.nix args)
+    (import ./hyprland.nix args)
   ];
 
 

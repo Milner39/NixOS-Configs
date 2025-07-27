@@ -9,7 +9,6 @@
     enable = true;
     package = pkgs.hyprland;
     xwayland.enable = true;
-    withUWSM = true; # Better for systemd
   };
 
   environment.sessionVariables = {
@@ -21,24 +20,9 @@
   };
 
   hardware = {
-    # Required for most Wayland compositors
+    # Fixes for Nvidia GPUs
     nvidia.modesetting.enable = true;
   };
-
-  environment.systemPackages = with pkgs; [
-    # Status bar
-    waybar
-
-    # Wallpaper
-    hyprpaper
-
-    # App launcher
-    rofi-wayland
-
-    # Notifications
-    mako
-    libnotify
-  ];
 
   xdg.portal.enable = true;
   xdg.portal.extraPortals = [];
