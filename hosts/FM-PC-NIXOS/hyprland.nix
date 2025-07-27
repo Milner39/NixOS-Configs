@@ -16,6 +16,19 @@
   # === System Specific Tweaks
 
 
+  # === Login ===
+
+  services.displayManager = {
+    # Use SDDM as display manager
+    sddm = {
+      enable = true;
+      wayland.enable = true;
+    };
+  };
+
+  # === Login ===
+
+
   # === Global Customisation ===
 
   environment.systemPackages = with pkgs; [
