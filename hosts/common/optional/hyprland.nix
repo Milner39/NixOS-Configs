@@ -13,6 +13,9 @@
   };
 
   environment.sessionVariables = {
+    # Fix cursor flickering
+    WLR_NO_HARDWARE_CURSORS = "1";
+
     # Tell electron apps to use Wayland
     NIXOS_OZONE_WL = "1";
   };
