@@ -74,6 +74,13 @@ in
   
   # === Networking ===
 
+  
+  # === Security ===
+  
+  security.polkit.enable = true;
+
+  # === Security ===
+
 
   # === Users ===
 
