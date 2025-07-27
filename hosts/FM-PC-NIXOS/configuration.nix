@@ -178,6 +178,10 @@ in
     git
     gh
     
+    # Terminals
+    kitty
+    ghostty
+    
     # Editors
     vscode
     
