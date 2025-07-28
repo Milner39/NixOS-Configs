@@ -5,6 +5,6 @@
 
 {
   imports = [
-    (import ./passwd.nix args)
+    (import ./passwd-persist.nix args)
   ];
 }
