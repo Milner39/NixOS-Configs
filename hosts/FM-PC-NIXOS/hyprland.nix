@@ -10,8 +10,11 @@
 
   # === System Specific Tweaks
 
-  # Using systemd so use Universal Wayland Session Manager for better support
+  # Because this system uses Systemd so use UWSM for better support
   programs.hyprland.withUWSM = true;
+
+  # Because this system uses Wayland
+  programs.xwayland.enable = true;
 
   # === System Specific Tweaks
 

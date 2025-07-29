@@ -25,7 +25,7 @@ in
 
   # === Bootloader ===
   
-  # Use systemd bootloader
+  # Use Systemd bootloader
   boot.loader.systemd-boot.enable = true;
   
   # Do not re-order BIOS boot order to put NixOS first
@@ -94,7 +94,7 @@ in
   # - `passwd-persist` cmd must be used to change passwords
   users.mutableUsers = false;
   
-  #security.sudo.wheelNeedsPassword = false;
+  # security.sudo.wheelNeedsPassword = false;
   
   # === Users ===
   
@@ -122,7 +122,7 @@ in
     };
   };
 
-  # Configure console keymap
+  # Configure console keyMap
   console.keyMap = "uk";
   
   # === Locale ===
