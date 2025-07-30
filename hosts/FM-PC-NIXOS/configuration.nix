@@ -185,9 +185,6 @@ in
     git
     gh
 
-    # Home Environments
-    home-manager
-
     # Terminals
     kitty
     ghostty
