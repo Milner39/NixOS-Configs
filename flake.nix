@@ -62,6 +62,7 @@
 	      specialArgs = baseSpecialArgs // { inherit
           hostname;
         };
+
       in nixpkgs.lib.nixosSystem {
         inherit system pkgs specialArgs;
 
@@ -83,6 +84,7 @@
         specialArgs = baseSpecialArgs // { inherit
           hostname;
         };
+
       in nixpkgs.lib.nixosSystem {
         inherit system pkgs specialArgs;
 
