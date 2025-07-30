@@ -1,11 +1,14 @@
 {
+  lib,
   pkgs,
   ...
 } @ args:
 
 {
-  # Import the shared Hyprland config
-  imports = [(import ../common/optional/hyprland.nix args)];
+  imports = [
+    # Import the shared Hyprland config
+    (import (lib.custom.fromRoot "hosts/common/optional/hyprland.nix") args)
+  ];
 
 
   # === System Specific Tweaks
