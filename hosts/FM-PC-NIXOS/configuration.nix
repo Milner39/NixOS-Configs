@@ -1,10 +1,10 @@
 {
   pkgs,
-  
+
   # specialArgs
   inputs,
   hostname,
-  ... 
+  ...
 } @ baseArgs:
 
 let
@@ -12,10 +12,10 @@ let
   args = baseArgs // { usersData = (import ./users.nix baseArgs); };
 in
 {
-  imports = [ 
+  imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    
+
     # Add modules
     (import ../common/core/default.nix args)
     (import ./hyprland.nix args)
@@ -24,13 +24,13 @@ in
 
 
   # === Bootloader ===
-  
+
   # Use Systemd bootloader
   boot.loader.systemd-boot.enable = true;
-  
+
   # Do not re-order BIOS boot order to put NixOS first
   boot.loader.efi.canTouchEfiVariables = false;
-  
+
   # === Bootloader ===
 
 
@@ -44,25 +44,25 @@ in
   };
 
   # === Build ===
-  
-  
+
+
   # === Networking ===
 
   networking = {
     hostName = hostname;
-    
+
     # Enable networking
     networkmanager = {
       enable = true;
-      
+
       # WiFi options
       wifi = {
-      	powersave = false;
-      	backend = "wpa_supplicant";
+        powersave = false;
+        backend = "wpa_supplicant";
       };
     };
   };
-  
+
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
 
@@ -71,12 +71,12 @@ in
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
-  
+
   # === Networking ===
 
-  
+
   # === Security ===
-  
+
   security.polkit.enable = true;
 
   # === Security ===
@@ -88,21 +88,21 @@ in
   users.users = builtins.mapAttrs
     (username: userCfg: userCfg.settings)
     (args.usersData.users);
-  
+
   # For password changes to persist:
   # - `usersData.users.<username>.password.useHashedFile` must be true
   # - `passwd-persist` cmd must be used to change passwords
   users.mutableUsers = false;
-  
+
   # security.sudo.wheelNeedsPassword = false;
-  
+
   # === Users ===
-  
-  
+
+
   # === Locale ===
-  
+
   time.timeZone = "Europe/London";
-  
+
   i18n = let
     locale = "en_GB.UTF-8";
   in
@@ -124,12 +124,12 @@ in
 
   # Configure console keyMap
   console.keyMap = "uk";
-  
+
   # === Locale ===
-  
-  
+
+
   # === Audio ===
-  
+
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
@@ -173,25 +173,28 @@ in
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "25.05"; # Did you read the comment?
-  
+
   # === Nix ===
 
 
   # === Global Environment ===
-  
+
   # Packages
   environment.systemPackages = with pkgs; [
     # Version control
     git
     gh
-    
+
+    # Home Environments
+    home-manager
+
     # Terminals
     kitty
     ghostty
-    
+
     # Editors
     vscode
-    
+
     # Browsers
     firefox
     brave
@@ -203,7 +206,7 @@ in
   programs = {
 
   };
-  
+
   # === Global Environment ===
 
 }

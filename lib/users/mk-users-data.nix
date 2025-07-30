@@ -24,8 +24,8 @@ let
   # === Module ===
 
   module = {...}: {
-    /* 
-      Defines the types of the `opts` argument for easier docs and setting 
+    /*
+      Defines the types of the `opts` argument for easier docs and setting
       required options or default values etc.
     */
     options = {
@@ -74,7 +74,7 @@ let
   # === Eval ===
 
   /*
-    Evaluate the `opts` argument and retrieve the results after option values 
+    Evaluate the `opts` argument and retrieve the results after option values
     have been checked and updated with defaults.
   */
   evaled = (lib.evalModules {

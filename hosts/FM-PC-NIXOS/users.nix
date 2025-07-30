@@ -20,8 +20,10 @@ lib.custom.users.mkUsersData {
       trusted = true;
     };
 
-    Guest = {
+    guest = {
       settings = {
+        description = "Guest";
+
         # Public account so safe to define password
         password = "";
       };
