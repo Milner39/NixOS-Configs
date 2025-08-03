@@ -58,7 +58,7 @@ in
       # WiFi options
       wifi = {
         powersave = false;
-        backend = "wpa_supplicant";
+        backend = "iwd";
       };
     };
   };
