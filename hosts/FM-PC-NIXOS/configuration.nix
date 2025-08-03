@@ -25,7 +25,7 @@ in
 
   # === Bootloader ===
 
-  # Use Systemd bootloader
+  # Use SystemD bootloader
   boot.loader.systemd-boot.enable = true;
 
   # Do not re-order BIOS boot order to put NixOS first

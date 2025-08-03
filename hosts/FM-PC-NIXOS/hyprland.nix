@@ -13,11 +13,12 @@
 
   # === System Specific Tweaks
 
-  # Because this system uses Systemd so use UWSM for better support
+  # Because this system uses SystemD so use UWSM for better support
   programs.hyprland.withUWSM = true;
 
   # Because this system uses Wayland
   programs.xwayland.enable = true;
+  environment.sessionVariables.NIXOS_OZONE_WL = "1"; # Tell electron apps to use Wayland
 
   # === System Specific Tweaks
 
