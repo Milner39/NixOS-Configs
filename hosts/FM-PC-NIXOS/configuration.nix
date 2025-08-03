@@ -187,7 +187,6 @@ in
 
     # Terminals
     kitty
-    ghostty
 
     # Editors
     vscode
