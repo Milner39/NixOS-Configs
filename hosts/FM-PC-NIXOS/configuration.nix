@@ -39,9 +39,7 @@ in
 
   # Use SystemD bootloader
   boot.loader.systemd-boot.enable = true;
-
-  # Do not re-order BIOS boot order to put NixOS first
-  boot.loader.efi.canTouchEfiVariables = false;
+  boot.loader.efi.canTouchEfiVariables = true;
 
   # === Bootloader ===
 
