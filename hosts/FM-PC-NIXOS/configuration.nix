@@ -23,6 +23,18 @@ in
 
 
 
+  # === Build ===
+
+  # Disable building some docs
+  documentation = {
+    nixos.enable = false;
+    man.enable = true;
+    info.enable = false;
+  };
+
+  # === Build ===
+
+
   # === Bootloader ===
 
   # Use SystemD bootloader
@@ -34,16 +46,12 @@ in
   # === Bootloader ===
 
 
-  # === Build ===
+  # === Hardware ===
 
-  # Disable building some docs
-  documentation = {
-    nixos.enable = false;
-    man.enable = true;
-    info.enable = false;
-  };
+  # For proprietary firmware (fix WiFi cards)
+  hardware.enableRedistributableFirmware = true;
 
-  # === Build ===
+  # === Hardware ===
 
 
   # === Networking ===
