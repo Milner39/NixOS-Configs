@@ -23,7 +23,7 @@
   # Because Hyprland uses Wayland
 
   # X11 compatibility
-  programs.xwayland.enable = true;
+  programs.hyprland.xwayland.enable = true;
 
   # Tell electron apps to use Wayland
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
