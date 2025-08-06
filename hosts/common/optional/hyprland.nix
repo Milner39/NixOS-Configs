@@ -4,6 +4,8 @@
 } @ args:
 
 {
+  # === Hyprland ===
+
   # Enable Hyprland
   programs.hyprland = {
     enable = true;
@@ -11,16 +13,31 @@
     portalPackage = pkgs.xdg-desktop-portal-hyprland;
   };
 
-  environment.sessionVariables = {
-    # Fix cursor flickering
-    WLR_NO_HARDWARE_CURSORS = "1";
-  };
-
-  hardware = {
-    # Fixes for Nvidia GPUs
-    nvidia.modesetting.enable = true;
-  };
-
   xdg.portal.enable = true;
   xdg.portal.extraPortals = [];
+
+  # === Hyprland ===
+
+
+  # === Wayland ===
+  # Because Hyprland uses Wayland
+
+  # X11 compatibility
+  programs.xwayland.enable = true;
+
+  # Tell electron apps to use Wayland
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+
+  # === Wayland ===
+
+
+  # === Nvidia Fixes ===
+
+  # Needed for Wayland
+  hardware.nvidia.modesetting.enable = true;
+
+  # Fix mouse flickering
+  environment.sessionVariables.WLR_NO_HARDWARE_CURSORS = "1";
+
+  # === Nvidia Fixes ===
 }
