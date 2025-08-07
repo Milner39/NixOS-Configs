@@ -38,16 +38,48 @@ in
   # === Bootloader ===
 
   # Use SystemD bootloader
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader = {
+    systemd-boot.enable = true;
+    efi.canTouchEfiVariables = true;
+  };
 
   # === Bootloader ===
+
+
+  # === Kernel ===
+
+  boot = {
+    # Use latest LTS kernel
+    # `pkgs.linuxPackages_latest` for latest version
+    # `pkgs.linuxPackages_X_X` for specific version
+    kernelPackages = pkgs.linuxPackages;
+  };
+
+  # === Kernel ===
 
 
   # === Hardware ===
 
   # For proprietary firmware (fix WiFi cards)
   hardware.enableRedistributableFirmware = true;
+
+  # Nvidia drivers and fixes
+  hardware.nvidia = {
+    enable = true;
+
+    # Needed for Wayland
+    modesetting.enable = true;
+
+    # Disable GPU idle-ing
+    powerManagement.enable = false;
+
+    # Adds `nvidia-settings` to packages for fine-grain control
+    nvidiaSettings = true;
+
+    # Use proprietary Nvidia drivers
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
+    open = false;
+  };
 
   # === Hardware ===
 
@@ -202,6 +234,7 @@ in
     brave
 
     # Other
+    nvidia-settings
   ];
 
   # Programs
