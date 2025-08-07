@@ -233,7 +233,6 @@ in
     brave
 
     # Other
-    nvidia-settings
   ];
 
   # Programs
