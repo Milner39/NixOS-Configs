@@ -66,7 +66,7 @@ in
 
   # Nvidia drivers and fixes
   hardware.nvidia = {
-    enable = true;
+    enabled = true;
 
     # Needed for Wayland
     modesetting.enable = true;
