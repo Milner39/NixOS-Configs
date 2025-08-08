@@ -50,10 +50,17 @@ in
   # === Kernel ===
 
   boot = {
-    # Use latest LTS kernel
-    # `pkgs.linuxPackages_latest` for latest version
-    # `pkgs.linuxPackages_X_X` for specific version
-    kernelPackages = pkgs.linuxPackages;
+    # Chose Linux kernel version
+    # https://www.kernel.org
+
+    # Kernel versions in `pkgs` are tied to the specific `nixpkgs` release
+    # currently being used, so make sure to update `nixpkgs` if you want a more
+    # up-to-date kernel version.
+
+    # mainline / stable  =  `pkgs.linuxPackages_latest`
+    # latest LTS         =  `pkgs.linuxPackages`
+    # specific version   =  `pkgs.linuxPackages_X_X`
+    kernelPackages = pkgs.linuxPackages_latest;
   };
 
   # === Kernel ===
