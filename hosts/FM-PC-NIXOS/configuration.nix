@@ -40,7 +40,13 @@ in
 
   # Use SystemD bootloader
   boot.loader = {
-    systemd-boot.enable = true;
+    systemd-boot = {
+      enable = true;
+
+      # https://search.nixos.org/options?show=boot.loader.systemd-boot.editor&type=packages
+      editor = false;
+    };
+
     efi.canTouchEfiVariables = true;
   };
 

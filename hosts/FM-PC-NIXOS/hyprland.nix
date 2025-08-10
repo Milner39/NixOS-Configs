@@ -11,12 +11,9 @@
   ];
 
 
-  # === System Specific Tweaks
+  # === Hyprland Tweaks ===
 
-  # Because this system uses SystemD so use UWSM for better support
-  programs.hyprland.withUWSM = true;
-
-  # === System Specific Tweaks
+  # === Hyprland Tweaks ===
 
 
   # === Login ===
@@ -32,7 +29,7 @@
   # === Login ===
 
 
-  # === Global Customisation ===
+  # === System-Wide Customisation ===
 
   environment.systemPackages = with pkgs; [
     # Status bar
@@ -49,5 +46,5 @@
     libnotify
   ];
 
-  # === Global Customisation ===
+  # === System-Wide Customisation ===
 }
