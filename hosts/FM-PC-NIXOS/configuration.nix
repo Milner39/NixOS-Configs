@@ -78,6 +78,7 @@ in
   hardware.enableRedistributableFirmware = true;
 
   # Nvidia drivers and fixes
+  services.xserver.videoDrivers = [ "nvidia" "amdgpu" ];
   hardware.nvidia = {
     # Needed for Wayland
     modesetting.enable = true;
