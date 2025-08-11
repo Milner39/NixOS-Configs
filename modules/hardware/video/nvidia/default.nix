@@ -52,9 +52,9 @@ in
 
     "dynamicBoost"."enable" = lib.mkOption { default = false; };
 
-    "videoAcceleration.enable" = lib.mkOption { default = true; };
+    "videoAcceleration"."enable" = lib.mkOption { default = true; };
 
-    "nvidiaSettings.enable" = lib.mkOption {
+    "nvidiaSettings"."enable" = lib.mkOption {
       description = ''
         Add `nvidia-settings` to system packages.
         `nvidia-settings` is a tool for configuring the NVIDIA Linux graphics 
