@@ -34,7 +34,10 @@ in
       description = ''
         Fixes Wayland compositors when using newer, proprietary NVIDIA drivers.
       '';
-      default = lib.versionAtLeast cfg.package.version "535";
+      default = (lib.versionAtLeast
+        configRoot.hardware.nvidia.package.version
+        "535"
+      );
       type = lib.types.bool;
     };
 
