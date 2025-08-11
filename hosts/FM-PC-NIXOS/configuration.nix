@@ -18,6 +18,7 @@ in
     ./hardware-configuration.nix
 
     # Add modules
+    (import (lib.custom.fromRoot "modules") args)
     (import ../common/core/default.nix args)
     (import ./hyprland.nix args)
   ];
@@ -77,21 +78,25 @@ in
   # For proprietary firmware (fix WiFi cards)
   hardware.enableRedistributableFirmware = true;
 
-  # Nvidia drivers and fixes
-  services.xserver.videoDrivers = [ "nvidia" "amdgpu" ];
-  hardware.nvidia = {
-    # Needed for Wayland
-    modesetting.enable = true;
+  # # NVIDIA drivers and fixes
+  # services.xserver.videoDrivers = [ "nvidia" "amdgpu" ];
+  # hardware.nvidia = {
+  #   # Needed for Wayland
+  #   modesetting.enable = true;
 
-    # Disable GPU idle-ing
-    powerManagement.enable = false;
+  #   # Disable GPU idle-ing
+  #   powerManagement.enable = false;
 
-    # Adds `nvidia-settings` to packages for fine-grain control
-    nvidiaSettings = true;
+  #   # Adds `nvidia-settings` to packages for fine-grain control
+  #   nvidiaSettings = true;
 
-    # Use proprietary Nvidia drivers
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
-    open = false;
+  #   # Use proprietary NVIDIA drivers
+  #   package = config.boot.kernelPackages.nvidiaPackages.stable;
+  #   open = false;
+  # };
+
+  modules.hardware.video.nvidia = {
+    enable = true;
   };
 
   # === Hardware ===

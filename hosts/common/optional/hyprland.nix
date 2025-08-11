@@ -34,7 +34,7 @@
   # === Wayland ===
 
 
-  # === Nvidia Fixes ===
+  # === NVIDIA Fixes ===
 
   # Needed for Wayland
   hardware.nvidia.modesetting.enable = true;
@@ -42,5 +42,5 @@
   # Fix mouse flickering
   environment.sessionVariables.WLR_NO_HARDWARE_CURSORS = "1";
 
-  # === Nvidia Fixes ===
+  # === NVIDIA Fixes ===
 }
