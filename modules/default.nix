@@ -26,4 +26,6 @@ in
   imports = [
     hardware.config
   ];
+
+  config = {};
 }

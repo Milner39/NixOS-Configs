@@ -23,4 +23,6 @@ in
   imports = [
     video.config
   ];
+
+  config = {};
 }

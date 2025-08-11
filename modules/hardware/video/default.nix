@@ -23,4 +23,6 @@ in
   imports = [
     nvidia.config
   ];
+
+  config = {};
 }
