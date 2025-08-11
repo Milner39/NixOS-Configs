@@ -31,9 +31,4 @@ in
     (builtins.removeAttrs hardware [ "options" ])
   ];
   # === Imports ===
-
-
-  # === Config ===
-  config = {};
-  # === Config ===
 }
