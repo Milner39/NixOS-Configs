@@ -16,13 +16,21 @@ let
   video = (import ./video childArgs);
 in
 {
+  # === Options ===
   options = {
     video = video.options;
   };
+  # === Options ===
 
+
+  # === Imports ===
   imports = [
     video.config
   ];
+  # === Imports ===
 
+
+  # === Config ===
   config = {};
+  # === Config ===
 }

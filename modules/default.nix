@@ -19,13 +19,21 @@ let
   hardware = (import ./hardware childArgs);
 in
 {
+  # === Options ===
   options.modules = {
     hardware = hardware.options;
   };
+  # === Options ===
 
+
+  # === Imports ===
   imports = [
     hardware.config
   ];
+  # === Imports ===
 
+
+  # === Config ===
   config = {};
+  # === Config ===
 }

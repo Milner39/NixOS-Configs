@@ -16,13 +16,21 @@ let
   nvidia = (import ./nvidia childArgs);
 in
 {
+  # === Options ===
   options = {
     nvidia = nvidia.options;
   };
+  # === Options ===
 
+
+  # === Imports ===
   imports = [
     nvidia.config
   ];
+  # === Imports ===
 
+
+  # === Config ===
   config = {};
+  # === Config ===
 }

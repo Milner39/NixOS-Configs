@@ -9,11 +9,6 @@ let
   # Get relative config position
   configRelative = args.configRelative.nvidia;
 
-#   # Create args for child-modules
-#   childArgs = { inherit configRoot configRelative lib pkgs; };
-
-  # Import child-modules
-
 
   # Make alias
   cfg = configRelative;
