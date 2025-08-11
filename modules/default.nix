@@ -28,7 +28,7 @@ in
 
   # === Imports ===
   imports = [
-    hardware.config
+    (builtins.removeAttrs hardware [ "options" ])
   ];
   # === Imports ===
 

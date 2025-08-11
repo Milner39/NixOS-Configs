@@ -25,12 +25,7 @@ in
 
   # === Imports ===
   imports = [
-    video.config
+    (builtins.removeAttrs video [ "options" ])
   ];
   # === Imports ===
-
-
-  # === Config ===
-  config = {};
-  # === Config ===
 }

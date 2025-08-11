@@ -25,12 +25,7 @@ in
 
   # === Imports ===
   imports = [
-    nvidia.config
+    (builtins.removeAttrs nvidia [ "options" ])
   ];
   # === Imports ===
-
-
-  # === Config ===
-  config = {};
-  # === Config ===
 }
