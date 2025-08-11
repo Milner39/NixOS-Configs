@@ -20,7 +20,7 @@ in
     video = video.options;
   };
 
-  config = {
-    video = video.config;
-  };
+  imports = [
+    video.config
+  ];
 }

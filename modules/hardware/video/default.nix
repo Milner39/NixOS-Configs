@@ -20,7 +20,7 @@ in
     nvidia = nvidia.options;
   };
 
-  config = {
-    nvidia = nvidia.config;
-  };
+  imports = [
+    nvidia.config
+  ];
 }

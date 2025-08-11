@@ -23,7 +23,7 @@ in
     hardware = hardware.options;
   };
 
-  config.modules = {
-    hardware = hardware.config;
-  };
+  imports = [
+    hardware.config
+  ];
 }
