@@ -7,7 +7,7 @@
 
 let
   # Get relative config position
-  configRelative fgRelative.nvidia;
+  configRelative = args.configRelative.nvidia;
 
 #   # Create args for child-modules
 #   childArgs = { inherit configRoot configRelative lib pkgs; };
