@@ -19,6 +19,7 @@ let
   cfg = configRelative;
 in
 {
+  # === Options ===
   options = {
     "enable" = lib.mkOption {
       description = "Whether to enable NVIDIA Linux drivers and custom tweaks.";
@@ -73,7 +74,10 @@ in
       type = lib.types.bool;
     };
   };
+  # === Options ===
 
+
+  # === Config ===
   config = lib.mkIf cfg.enable {
     hardware.nvidia = {
       modesetting.enable = cfg.modesetting.enable;
@@ -87,4 +91,5 @@ in
     # Add video driver
     services.xserver.videoDrivers = [ "nvidia" ];
   };
+  # === Config ===
 }
