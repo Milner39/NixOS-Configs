@@ -10,21 +10,24 @@ lib.custom.users.mkUsersData {
         description = "Finn Milner";
         extraGroups = [ "wheel" "networkmanager" ];
 
-        # REMOVE WHEN SECURITY FINISHED
-        password = "123";
+        # ALWAYS CHANGE AFTER THE USER IS FIRST CREATED!!!
+        initialPassword = "";
       };
+
       password = {
         # ADD WHEN passwd-persist SCRIPT FINISHED
         # useHashedFile = true;
       };
+
       trusted = true;
     };
+
 
     guest = {
       settings = {
         description = "Guest";
 
-        # Public account so safe to define password
+        # Public account so safe to define empty password
         password = "";
       };
     };

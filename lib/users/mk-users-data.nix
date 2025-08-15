@@ -98,13 +98,14 @@ let
 
         # Point to hashed password file
         hashedPasswordFile = if userCfg.password.useHashedFile
-          then "/home/${username}/.config/passwd/hashedPassword.txt"
+          then "/home/${username}/.config/passwd-persist/hashedPasswordFile"
           else null;
       };
     }) (evaled.users);
 
     # Get trusted users
     trusted-users = getTrustedUsers (evaled.users);
+
   in { inherit
     users
     trusted-users;
