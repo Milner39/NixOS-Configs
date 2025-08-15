@@ -149,7 +149,7 @@ in
   # For password changes to persist:
   # - `usersData.users.<username>.password.useHashedFile` must be true
   # - `passwd-persist` cmd must be used to change passwords
-  users.mutableUsers = false;
+  users.mutableUsers = true;
 
   # security.sudo.wheelNeedsPassword = false;
 
