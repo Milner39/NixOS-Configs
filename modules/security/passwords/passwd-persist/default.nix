@@ -49,6 +49,7 @@ When the `passwd-persist` command is used:
       default = false;
       type = lib.types.bool;
     };
+  };
   # === Options ===
 
 
