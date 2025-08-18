@@ -79,22 +79,6 @@ in
   # For proprietary firmware (fix WiFi cards)
   hardware.enableRedistributableFirmware = true;
 
-  # # NVIDIA drivers and fixes
-  # services.xserver.videoDrivers = [ "nvidia" "amdgpu" ];
-  # hardware.nvidia = {
-  #   # Needed for Wayland
-  #   modesetting.enable = true;
-
-  #   # Disable GPU idle-ing
-  #   powerManagement.enable = false;
-
-  #   # Adds `nvidia-settings` to packages for fine-grain control
-  #   nvidiaSettings = true;
-
-  #   # Use proprietary NVIDIA drivers
-  #   package = config.boot.kernelPackages.nvidiaPackages.stable;
-  #   open = false;
-  # };
 
   modules.hardware.video.nvidia = {
     enable = true;
@@ -136,20 +120,20 @@ in
 
   security.polkit.enable = true;
 
+
+  modules.security.passwords.passwd-persist = {
+    enable = true;
+  };
+
   # === Security ===
 
 
   # === Users ===
 
-  # Gets users options from `usersData.users.<username>.settings`
+  # Gets users options from `usersData.users.<name>.settings`
   users.users = builtins.mapAttrs
     (username: userCfg: userCfg.settings)
     (args.usersData.users);
-
-  # For password changes to persist:
-  # - `usersData.users.<username>.password.useHashedFile` must be true
-  # - `passwd-persist` cmd must be used to change passwords
-  users.mutableUsers = true;
 
   # security.sudo.wheelNeedsPassword = false;
 
