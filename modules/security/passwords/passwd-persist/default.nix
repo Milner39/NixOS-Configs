@@ -55,7 +55,8 @@ When the `passwd-persist` command is used:
 
   # === Config ===
   config = lib.mkIf cfg.enable {
-
+    # Allow users' passwords to be changed
+    users.mutableUsers = true;
   };
   # === Config ===
 }

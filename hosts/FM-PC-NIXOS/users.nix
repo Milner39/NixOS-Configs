@@ -5,9 +5,24 @@
 
 lib.custom.users.mkUsersData {
   users = {
+
+
+    root = {
+      settings = {
+        # Make sure special `root` user options are forced
+        uid = 0;
+        isSystemUser = true;
+        home = "/root";
+      };
+
+      trusted = true;
+    };
+
+
     finnm = {
       settings = {
         description = "Finn Milner";
+        isNormalUser = true;
         extraGroups = [ "wheel" "networkmanager" ];
 
         # ALWAYS CHANGE AFTER THE USER IS FIRST CREATED!!!
@@ -15,8 +30,7 @@ lib.custom.users.mkUsersData {
       };
 
       password = {
-        # ADD WHEN passwd-persist SCRIPT FINISHED
-        # useHashedFile = true;
+        passwd-persist.enable = true;
       };
 
       trusted = true;
@@ -26,6 +40,7 @@ lib.custom.users.mkUsersData {
     guest = {
       settings = {
         description = "Guest";
+        isNormalUser = true;
 
         # Public account so safe to define empty password
         password = "";

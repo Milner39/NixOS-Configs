@@ -17,6 +17,29 @@ let
     (builtins.attrNames users)
   );
 
+  # TODO: Turn this into a reusable filter func
+  getPasswdPersistUsers = (users: (
+    let
+      # Create a list of usernames using a filter
+      usernames = builtins.filter (
+        # The filter
+        (username: (
+          let
+            # Get the attributes of each username in the `users` set
+            user = users.${username};
+
+            # Keep the username if the it passes the filter
+            keep = (user.password.passwd-persist.enable == true);
+          in keep
+        ))
+
+        # The usernames
+        (builtins.attrNames users)
+      );
+
+    in usernames
+  ));
+
   # === Functions ===
 
 
@@ -31,23 +54,23 @@ let
     options = {
 
       "users" = lib.mkOption {
-        description = "A map of users by username";
+        description = "A map of users by username.";
         default = null; # required
         type = lib.types.attrsOf (lib.types.submodule {
           options = {
             "settings" = lib.mkOption {
-              description = "Settings for `users.users.<username>`";
+              description = "Settings for `users.users.<name>`.";
               default = {};
               type = lib.types.attrs;
             };
 
             "password" = lib.mkOption {
-              description = "Password options";
+              description = "Password options.";
               default = {};
               type = lib.types.submodule {
                 options = {
-                  "useHashedFile" = lib.mkOption {
-                    description = "If `users.users.<username>.hashedPasswordFile` should be set";
+                  "passwd-persist"."enable" = lib.mkOption {
+                    description = "Use `passwd-persist` to manage `hashedPasswordFile`.";
                     default = false;
                     type = lib.types.bool;
                   };
@@ -56,7 +79,7 @@ let
             };
 
             "trusted" = lib.mkOption {
-              description = "If this user should be added to `nix.settings.trusted-users`";
+              description = "If this user should be added to `nix.settings.trusted-users`.";
               default = false;
               type = lib.types.bool;
             };
@@ -90,25 +113,44 @@ let
       # Add for easier access
       username = username;
 
-      # Add additional attributes
-      settings = userCfg.settings // {
 
-        # Set up home folder
-        isNormalUser = true;
+      # === `users.users.<name>` Options ===
+      # Add default/forced options
 
-        # Point to hashed password file
-        hashedPasswordFile = if userCfg.password.useHashedFile
-          then "/home/${username}/.config/passwd-persist/hashedPasswordFile"
-          else null;
-      };
+      settings =
+        # Default options
+        {
+          hashedPasswordFile = lib.mkIf userCfg.password.passwd-persist.enable (
+            lib.custom.firstNonNull [
+              userCfg.settings.home
+              "/var/empty"
+            ]
+          );
+        } //
+
+        # Custom options (from what was passed into this module)
+        userCfg.settings //
+        
+        # Forced options
+        {
+
+        };
+
+      # === `users.users.<name>` Options ===
+
     }) (evaled.users);
 
     # Get trusted users
     trusted-users = getTrustedUsers (evaled.users);
 
+    # Get `passwd-persist` users
+    passwd-persist-users = getPasswdPersistUsers (evaled.users);
+
   in { inherit
     users
-    trusted-users;
+    trusted-users
+    passwd-persist-users
+    ;
   };
 
   # === Eval ===
