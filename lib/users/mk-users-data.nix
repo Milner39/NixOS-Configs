@@ -121,10 +121,9 @@ let
         # Default options
         {
           hashedPasswordFile = lib.mkIf userCfg.password.passwd-persist.enable (
-            lib.custom.firstNonNull [
-              userCfg.settings.home
-              "/var/empty"
-            ]
+            if (userCfg.settings.home != null)
+              then userCfg.settings.home
+              else "/var/empty"
           );
         } //
 
