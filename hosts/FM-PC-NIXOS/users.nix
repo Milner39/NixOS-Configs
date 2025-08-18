@@ -13,6 +13,9 @@ lib.custom.users.mkUsersData {
         uid = 0;
         isSystemUser = true;
         home = "/root";
+        #
+
+        
       };
 
       trusted = true;

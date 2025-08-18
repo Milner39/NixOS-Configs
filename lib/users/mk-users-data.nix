@@ -120,11 +120,7 @@ let
       settings =
         # Default options
         {
-          hashedPasswordFile = lib.mkIf userCfg.password.passwd-persist.enable (
-            if (builtins.hasAttr "home" userCfg.settings)
-              then userCfg.settings.home
-              else "/var/empty"
-          );
+
         } //
 
         # Custom options (from what was passed into this module)
@@ -132,7 +128,9 @@ let
         
         # Forced options
         {
-
+          hashedPasswordFile = lib.mkIf (userCfg.password.passwd-persist.enable) (
+            "/etc/passwd-persist/hashedPasswordFiles/${username}"
+          );
         };
 
       # === `users.users.<name>` Options ===
