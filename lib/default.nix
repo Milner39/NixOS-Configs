@@ -16,5 +16,5 @@
       (val: val != null)
       (vals)
     )
-  ))
+  ));
 }
