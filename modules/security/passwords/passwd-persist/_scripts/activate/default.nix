@@ -28,7 +28,7 @@ let
     buildPhase = ''
       shc -f $src -o ${activationPackageName}
     '';
-    installerPhase = ''
+    installPhase = ''
       mkdir $out/bin
       cp ${activationPackageName} $out/bin/
     '';
