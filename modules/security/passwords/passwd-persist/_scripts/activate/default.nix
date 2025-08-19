@@ -1,4 +1,5 @@
 {
+  configRelative,
   lib,
   pkgs,
   ...
@@ -6,7 +7,6 @@
 
 let
   # Get relative config position
-  configRelative = args.configRelative.passwd-persist;
   cfg = configRelative;
 
 
