@@ -21,7 +21,7 @@ let
   getPasswdPersistUsers = (users: (
     let
       # Create a list of usernames using a filter
-      usernames = builtins.filter (
+      usernames = (builtins.filter
         # The filter
         (username: (
           let
