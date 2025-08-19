@@ -26,7 +26,7 @@ in
     # Run script on activation
     system.activationScripts.${activationScriptName} = {
       text = ''
-        ${activationScript}/bin/${activationScriptName}
+        ${activationScript}/bin/${activationScriptName} -u="${cfg.users}"
       '';
     };
   };
