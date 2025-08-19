@@ -5,7 +5,8 @@
 for arg in "$@"; do
   case $arg in
     -u=*)
-      USERS="${arg#*=}"
+      RAW_JSON="${arg#*=}"  # Remove `-u=`
+      USERS=$(echo "$RAW_JSON" | jq -r '.[]')  # Parse JSON into usernames separated by newlines
       shift
       ;;
     *)
@@ -16,9 +17,9 @@ for arg in "$@"; do
 done
 
 
-# 2. Get list of users to enable `passwd-persist` functionality for
-for user in $USERS; do
-  echo "$user"
+# Iterate over users
+echo "$USERS" | while IFS= read -r USER; do
+  echo "$USER"
 done
 
 

@@ -10,23 +10,40 @@ let
   cfg = configRelative;
 
 
-  # Import script
-  activationScriptName = "passwd-persist-activate";
-  activationScript = (pkgs.writeShellScriptBin
-    (activationScriptName)
-    (builtins.readFile ./.sh)
-  );
+
+  # Make package
+  activationPackageName = "passwd-persist-activate";
+  activationPackage = pkgs.stdenv.mkDerivation {
+    # Info
+    name = activationPackageName;
+    src = ./.sh;  # Gets set to `$src`
+
+    # Buildtime-only deps
+    nativeBuildInputs = [ pkgs.shc ];
+
+    # Buildtime & runtime deps
+    buildInputs = [ pkgs.jq ];
+
+    # Phases
+    buildPhase = ''
+      shc -f $src -o ${activationPackageName}
+    '';
+    installerPhase = ''
+      mkdir $out/bin
+      cp ${activationPackageName} $out/bin/
+    '';
+  };
 in
 {
   # === Config ===
   config = lib.mkIf cfg.enable {
-    # Add script to environment
-    environment.systemPackages = [ activationScript ];
+    # Add package to environment
+    environment.systemPackages = [ activationPackage ];
 
     # Run script on activation
-    system.activationScripts.${activationScriptName} = {
+    system.activationScripts.${activationPPackageName} = {
       text = ''
-        ${activationScript}/bin/${activationScriptName} -u="${cfg.users}"
+        ${activationPackage}/bin/${activationPPackageName} -u="${builtins.toJSON cfg.users}"
       '';
     };
   };
