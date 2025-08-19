@@ -123,6 +123,7 @@ in
 
   modules.security.passwords.passwd-persist = {
     enable = true;
+    users = args.usersData.passwd-persist-users;
   };
 
   # === Security ===
