@@ -6,6 +6,7 @@
     "modesetting",
     "networkmanager",
     "nixpkgs",
+    "pipefail",
     "pipewire",
     "polkit",
     "powersave",

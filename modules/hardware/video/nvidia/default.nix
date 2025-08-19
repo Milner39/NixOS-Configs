@@ -8,9 +8,6 @@
 let
   # Get relative config position
   configRelative = args.configRelative.nvidia;
-
-
-  # Make alias
   cfg = configRelative;
 in
 {
