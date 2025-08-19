@@ -18,19 +18,22 @@ let
     name = activationPackageName;
     src = ./.;  # Gets set to `$src`
 
-    # Buildtime-only deps
-    nativeBuildInputs = [ pkgs.shc ];
-
-    # Buildtime & runtime deps
-    buildInputs = [ pkgs.jq ];
+    # Build time deps
+    nativeBuildInputs = [ pkgs.makeWrapper ];
 
     # Phases
-    buildPhase = ''
-      shc -f $src/.sh -o ${activationPackageName}
-    '';
     installPhase = ''
-      mkdir $out/bin
-      cp ${activationPackageName} $out/bin/
+      # Move to output
+      mkdir -p $out/bin
+      cp $src/.sh $out/bin/${activationPackageName}
+
+      # Make only executable by root
+      # ISSUE: chown root:root $out/bin/${activationPackageName}
+      chmod 700 $out/bin/${activationPackageName}
+
+      # Make `jq` available
+      wrapProgram $out/bin/${activationPackageName} \
+        --prefix PATH : ${pkgs.jq}/bin
     '';
   };
 in
@@ -43,7 +46,7 @@ in
     # Run script on activation
     system.activationScripts.${activationPackageName} = {
       text = ''
-        ${activationPackage}/bin/${activationPackageName} -u="${builtins.toJSON cfg.users}"
+        ${activationPackage}/bin/${activationPackageName} -u='${builtins.toJSON cfg.users}'
       '';
     };
   };
