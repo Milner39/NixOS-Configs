@@ -10,20 +10,23 @@ let
   cfg = configRelative;
 
 
-  # # Import activation script
-  # activationScript = (pkgs.writeShellScriptBin
-  #   "passwd-persist-activate"
-  #   (builtins.readFile ./.sh)
-  # );
+  # Import activation script
+  activationScriptName = "passwd-persist-activate";
+  activationScript = (pkgs.writeShellScriptBin
+    (activationScriptName)
+    (builtins.readFile ./.sh)
+  );
 in
 {
   # === Config ===
   config = lib.mkIf cfg.enable {
-    # # Add activation script to environment
-    # environment.systemPackages = [ activationScript ];
+    # Add activation script to environment
+    environment.systemPackages = [ activationScript ];
 
-    system.activationScripts."passwd-persist-activate" = {
-      text = (builtins.readFile ./.sh);
+    system.activationScripts.${activationScriptName} = {
+      text = ''
+        ${activationScriptName}
+      '';
     };
   };
   # === Config ===
