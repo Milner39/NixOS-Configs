@@ -10,7 +10,7 @@ let
   cfg = configRelative;
 
 
-  # Import activation script
+  # Import script
   activationScriptName = "passwd-persist-activate";
   activationScript = (pkgs.writeShellScriptBin
     (activationScriptName)
@@ -20,9 +20,10 @@ in
 {
   # === Config ===
   config = lib.mkIf cfg.enable {
-    # Add activation script to environment
+    # Add script to environment
     environment.systemPackages = [ activationScript ];
 
+    # Run script on activation
     system.activationScripts.${activationScriptName} = {
       text = ''
         ${activationScript}/bin/${activationScriptName}
