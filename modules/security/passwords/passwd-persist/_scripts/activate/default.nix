@@ -25,7 +25,7 @@ in
 
     system.activationScripts.${activationScriptName} = {
       text = ''
-        ${activationScriptName}
+        ${activationScript}/bin/${activationScriptName}
       '';
     };
   };
