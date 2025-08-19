@@ -41,9 +41,9 @@ in
     environment.systemPackages = [ activationPackage ];
 
     # Run script on activation
-    system.activationScripts.${activationPPackageName} = {
+    system.activationScripts.${activationPackageName} = {
       text = ''
-        ${activationPackage}/bin/${activationPPackageName} -u="${builtins.toJSON cfg.users}"
+        ${activationPackage}/bin/${activationPackageName} -u="${builtins.toJSON cfg.users}"
       '';
     };
   };
