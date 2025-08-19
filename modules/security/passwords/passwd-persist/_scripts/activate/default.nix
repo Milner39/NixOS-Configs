@@ -16,7 +16,7 @@ let
   activationPackage = pkgs.stdenv.mkDerivation {
     # Info
     name = activationPackageName;
-    src = ./.sh;  # Gets set to `$src`
+    src = ./.;  # Gets set to `$src`
 
     # Buildtime-only deps
     nativeBuildInputs = [ pkgs.shc ];
@@ -26,7 +26,7 @@ let
 
     # Phases
     buildPhase = ''
-      shc -f $src -o ${activationPackageName}
+      shc -f $src/.sh -o ${activationPackageName}
     '';
     installPhase = ''
       mkdir $out/bin
