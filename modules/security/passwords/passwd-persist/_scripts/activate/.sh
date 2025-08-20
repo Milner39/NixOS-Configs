@@ -96,6 +96,7 @@ echo "$users" | while IFS= read -r user; do
 
     # Create the file with the user's current hash as it's content
     grep "^${user}:" "/etc/shadow" | cut -d":" -f2 > "$HSH_PASSWD_FILE"
+    chmod 600 "$HSH_PASSWD_FILE"
 
   else
     # FILE DOES ALREADY EXIST
