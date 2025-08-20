@@ -5,7 +5,14 @@
 set -eu
 
 
-# === Parse options ===
+
+# === Constants ===
+HSH_PASSWD_DIR="/etc/passwd-persist/hashedPasswordFiles"
+# === Constants ===
+
+
+
+# === Parse Options ===
 
 # Define the expected options
 # -o: short options
@@ -51,10 +58,10 @@ while true; do
   esac
 done
 
-# === Parse options ===
+# === Parse Options ===
 
 
-# === Validate options ===
+# === Validate Options ===
 
 if [ -z "$users" ]; then
   echo "Error: -u|--users is required" >&2
@@ -63,19 +70,38 @@ fi
 # Parse JSON into usernames separated by newlines
 users=$(echo "$users" | jq -r '.[]')
 
-# === Validate options ===
+# === Validate Options ===
 
 
+
+# === Create Hashed Password Files ===
+
+# Create the directory for the files
+if [ ! -d "$HSH_PASSWD_DIR" ]; then
+  # Delete anything with the same name so dir can be created
+  rm -rf "$HSH_PASSWD_DIR"
+fi
+mkdir -p "$HSH_PASSWD_DIR"
 
 # Iterate over users
 echo "$users" | while IFS= read -r user; do
-  echo "$user"
+
+  # Handle the file for each user
+  HSH_PASSWD_FILE="${HSH_PASSWD_DIR}/${user}"
+  if [ ! -f "$HSH_PASSWD_FILE" ]; then
+    # FILE DOES NOT ALREADY EXIST
+
+    # Delete anything with the same name so file can be created
+    rm -rf "$HSH_PASSWD_FILE"
+
+    # Create the file with the user's current hash as it's content
+    grep "^${user}:" "/etc/shadow" | cit -d":" -f2 > "$HSH_PASSWD_FILE"
+
+  else
+    # FILE DOES ALREADY EXIST
+    true
+  fi
+
 done
 
-
-# Setup Hashed Password Files
-
-
-
-
-# /etc/passwd-persist/hashedPasswordFiles/<name>
+# === Create Hashed Password Files ===
