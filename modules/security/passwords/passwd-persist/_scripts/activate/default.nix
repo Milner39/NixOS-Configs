@@ -30,9 +30,12 @@ let
       # Make only executable by root
       chmod 700 $out/bin/${activationPackageName}
 
-      # Make `jq` available
+      # Make packages available
       wrapProgram $out/bin/${activationPackageName} \
-        --prefix PATH : ${pkgs.jq}/bin
+        --prefix PATH : ${lib.concatStringsSep ":" [
+          "${pkgs.jq}/bin"
+          "${pkgs.getopt}/bin"
+        ]}
     '';
   };
 in
@@ -42,7 +45,8 @@ in
     # Run script on activation
     system.activationScripts.${activationPackageName} = {
       text = ''
-        ${activationPackage}/bin/${activationPackageName} -u='${builtins.toJSON cfg.users}'
+        ${activationPackage}/bin/${activationPackageName} \
+          --users='${builtins.toJSON cfg.users}'
       '';
     };
   };
