@@ -28,7 +28,6 @@ let
       cp $src/.sh $out/bin/${activationPackageName}
 
       # Make only executable by root
-      # ISSUE: chown root:root $out/bin/${activationPackageName}
       chmod 700 $out/bin/${activationPackageName}
 
       # Make `jq` available
@@ -40,9 +39,6 @@ in
 {
   # === Config ===
   config = lib.mkIf cfg.enable {
-    # Add package to environment
-    environment.systemPackages = [ activationPackage ];
-
     # Run script on activation
     system.activationScripts.${activationPackageName} = {
       text = ''
