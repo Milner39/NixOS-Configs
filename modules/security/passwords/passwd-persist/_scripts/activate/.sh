@@ -100,7 +100,12 @@ echo "$users" | while IFS= read -r user; do
 
   else
     # FILE DOES ALREADY EXIST
-    true
+    
+    # Get the hash from the file
+    hash=$(sed -n '1s/^[ \t]*//;s/[ \t]*$//p' "$HSH_PASSWD_FILE")
+
+    # Change the password hash in /etc/shadow
+    echo "${user}:${hash}" | chpasswd -e
   fi
 
 done
