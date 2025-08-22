@@ -35,6 +35,7 @@ let
         --prefix PATH : ${lib.concatStringsSep ":" [
           "${pkgs.jq}/bin"
           "${pkgs.getopt}/bin"
+          "${pkgs.gnused}/bin"  # sed
         ]}
     '';
   };

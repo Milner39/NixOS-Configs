@@ -3,6 +3,7 @@
     "alsa",
     "getent",
     "getopt",
+    "gnused",
     "hyprland",
     "modesetting",
     "networkmanager",
