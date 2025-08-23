@@ -25,7 +25,7 @@ let
     installPhase = ''
       # Move to output
       mkdir -p $out/bin
-      cp $src/.sh $out/bin/${activationPackageName}
+      cp $src/.bash $out/bin/${activationPackageName}
 
       # Make only executable by root
       chmod 700 $out/bin/${activationPackageName}
@@ -33,6 +33,7 @@ let
       # Make packages available
       wrapProgram $out/bin/${activationPackageName} \
         --prefix PATH : ${lib.concatStringsSep ":" [
+          "${pkgs.bash}/bin"
           "${pkgs.jq}/bin"
           "${pkgs.getopt}/bin"
           "${pkgs.gnused}/bin"  # sed

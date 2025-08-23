@@ -1,8 +1,9 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # -e: Exit if any command fails
 # -u: Treat unset variables as errors
-set -eu
+# -o pipefail: Catch errors in pipelines
+set -euo pipefail
 
 
 
@@ -67,8 +68,8 @@ if [ -z "$users" ]; then
   echo "Error: -u|--users is required" >&2
   exit 1
 fi
-# Parse JSON into usernames separated by newlines
-users=$(echo "$users" | jq -r '.[]')
+# Parse JSON into array of usernames
+readarray -t users < <(jq -r '.[]' <<< "$users")
 
 # === Validate Options ===
 
@@ -78,28 +79,24 @@ users=$(echo "$users" | jq -r '.[]')
 
 # Create the directory for the files
 if [ ! -d "$HSH_PASSWD_DIR" ]; then
-  # Delete anything with the same name so dir can be created
   rm -rf "$HSH_PASSWD_DIR"
 fi
 mkdir -p "$HSH_PASSWD_DIR"
 
-# Iterate over users
-echo "$users" | while IFS= read -r user; do
 
-  # Handle the file for each user
+# For each user
+for user in "${users[@]}"; do
   HSH_PASSWD_FILE="${HSH_PASSWD_DIR}/${user}"
-  if [ ! -f "$HSH_PASSWD_FILE" ]; then
-    # FILE DOES NOT ALREADY EXIST
 
-    # Delete anything with the same name so file can be created
+  # Handle hashed password files
+  if [ ! -f "$HSH_PASSWD_FILE" ]; then  # FILE DOES NOT EXIST
     rm -rf "$HSH_PASSWD_FILE"
 
     # Create the file with the user's current hash as it's content
     grep "^${user}:" "/etc/shadow" | cut -d":" -f2 > "$HSH_PASSWD_FILE"
     chmod 600 "$HSH_PASSWD_FILE"
 
-  else
-    # FILE DOES ALREADY EXIST
+  else  # FILE EXISTS
     
     # Get the hash from the file
     hash=$(sed -n '1s/^[ \t]*//;s/[ \t]*$//p' "$HSH_PASSWD_FILE")
