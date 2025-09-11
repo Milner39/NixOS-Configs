@@ -6,7 +6,7 @@
 lib.custom.users.mkUsersData {
   users = {
 
-
+    # === root ===
     root = {
       settings = {
         # Make sure special `root` user options are forced
@@ -20,8 +20,10 @@ lib.custom.users.mkUsersData {
 
       trusted = true;
     };
+    # === root ===
 
 
+    # === finnm ===
     finnm = {
       settings = {
         description = "Finn Milner";
@@ -38,8 +40,10 @@ lib.custom.users.mkUsersData {
 
       trusted = true;
     };
+    # === finnm ===
 
 
+    # === guest ===
     guest = {
       settings = {
         description = "Guest";
@@ -49,5 +53,7 @@ lib.custom.users.mkUsersData {
         password = "";
       };
     };
+    # === guest ===
+
   };
 }
