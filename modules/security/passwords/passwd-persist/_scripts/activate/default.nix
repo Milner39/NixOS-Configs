@@ -54,3 +54,12 @@ in
   };
   # === Config ===
 }
+
+/* NOTE:
+  The end goal of this module is to use SOPS-NIX and an encrypted file to 
+  store passwords for users.
+
+  I also want to make is so the hashed password files can exist somewhere in 
+  the user's home directory so password setting can be handled by home manager 
+  rather than the system wide config.
+*/
