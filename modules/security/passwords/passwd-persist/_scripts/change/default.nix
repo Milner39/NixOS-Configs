@@ -34,9 +34,7 @@ let
       wrapProgram $out/bin/${chpasswdPackageName} \
         --prefix PATH : ${lib.concatStringsSep ":" [
           "${pkgs.bash}/bin"
-          # "${pkgs.jq}/bin"
-          # "${pkgs.getopt}/bin"
-          # "${pkgs.gnused}/bin"  # sed
+          "${pkgs.getent}/bin"
         ]}
     '';
   };
