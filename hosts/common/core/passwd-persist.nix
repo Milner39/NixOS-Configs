@@ -73,21 +73,21 @@ let
   '';
 in
 {
-  # Add scripts to environment
-  environment.systemPackages = [ wrapperScript updateFileScript ];
+  # # Add scripts to environment
+  # environment.systemPackages = [ wrapperScript updateFileScript ];
 
-  # Alias passwd to wrapper script
-  environment.shellAliases.passwd = "${wrapperScript}/bin/${wrapperScriptName}";
+  # # Alias passwd to wrapper script
+  # environment.shellAliases.passwd = "${wrapperScript}/bin/${wrapperScriptName}";
 
-  # Let update-hashed-password-file script be run as root by anyone
-  # NOTE: Security measures have been made within the script
-  security.sudo.extraRules = [{
-    users = [ "ALL" ];
-    commands = [{
-      command = "${updateFileScript}/bin/${updateFileScriptName}";
-      options = [ "NOPASSWD" ];
-    }];
-  }];
+  # # Let update-hashed-password-file script be run as root by anyone
+  # # NOTE: Security measures have been made within the script
+  # security.sudo.extraRules = [{
+  #   users = [ "ALL" ];
+  #   commands = [{
+  #     command = "${updateFileScript}/bin/${updateFileScriptName}";
+  #     options = [ "NOPASSWD" ];
+  #   }];
+  # }];
 }
 
 # TODO: FIXME
