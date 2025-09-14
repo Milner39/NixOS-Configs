@@ -1,12 +1,15 @@
 {
   "cSpell.words": [
     "alsa",
+    "dmask",
+    "fmask",
     "getent",
     "getopt",
     "gnused",
     "hashfile",
     "hyprland",
     "modesetting",
+    "networkd",
     "networkmanager",
     "nixpkgs",
     "oneshot",
@@ -16,6 +19,11 @@
     "powersave",
     "pulseaudio",
     "rtkit",
-    "stdenv"
+    "stdenv",
+    "usbhid",
+    "UWSM",
+    "vfat",
+    "xhci",
+    "xwayland"
   ]
 }

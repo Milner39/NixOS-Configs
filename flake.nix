@@ -16,16 +16,6 @@
     };
 
     # === Utilities ===
-
-
-    # === Niche ===
-
-    nixos-wsl = {
-      url = "github:nix-community/nixos-wsl";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # === Niche ===
   };
 
 
@@ -48,10 +38,18 @@
 
   in {
     nixosConfigurations = {
-      # === FM-PC-NIXOS ===
+      /* Naming Hosts: `<usage><device>-nix-<owner>`
+        <usage>   =  h (home), w (work), etc
+        <device>  =  d (desktop), l (laptop), etc
+        nix       =  Shows system is running NixOS
+        <owner>   =  Owner's initials
+      */
+
+
+      # === hd-nix-fm ===
       
-      "FM-PC-NIXOS" = let
-        hostname = "FM-PC-NIXOS";
+      "hd-nix-fm" = let
+        hostname = "hd-nix-fm";
         
         system = "x86_64-linux";
         pkgs = import nixpkgs {
@@ -67,33 +65,11 @@
         inherit system pkgs specialArgs;
 
         modules = [
-          ./hosts/FM-PC-NIXOS/configuration.nix
+          ./hosts/hd-nix-fm/configuration.nix
         ];
       };
       
-      # === FM-PC-NIXOS ===
-      
-      # === WSNix ===
-
-      WSNix = let
-        hostname = "WSNix";
-
-        system = "x86_64-linux";
-        pkgs = nixpkgs.legacyPackages.${system};
-
-        specialArgs = baseSpecialArgs // { inherit
-          hostname;
-        };
-
-      in nixpkgs.lib.nixosSystem {
-        inherit system pkgs specialArgs;
-
-        modules = [
-          ./hosts/WSNix/configuration.nix
-        ];
-      };
-
-      # === WSNix ===
+      # === hd-nix-fm ===
     };
   };
 }
