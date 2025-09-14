@@ -6,7 +6,7 @@
   # === Imports ===
   imports = [
     (import ./activate args)
-    (import ./change args)
+    (import ./update args)
   ];
   # === Imports ===
 }

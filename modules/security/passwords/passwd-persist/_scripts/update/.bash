@@ -21,17 +21,17 @@ HSH_PASSWD_DIR="/etc/passwd-persist/hashedPasswordFiles"
 # Use `:` after option to indicate it takes a value, and is not a boolean
 OPTS=$(getopt \
   -o u:       \
-  -l user:   \
+  -l users:   \
   -- "$@"
 ) || {
-  echo "Failed to parse options." >&2
+  echo "Error: Failed to parse options." >&2
   exit 1
 }
 eval set -- "$OPTS"
 
 
 # Set defaults for each option
-user="$(whoami)"
+users=""
 
 
 # Process each option
@@ -39,8 +39,8 @@ while true; do
   case "$1" in
 
     # Users
-    -u|--user)
-      user="$2"
+    -u|--users)
+      users="$2"
       shift 2
       ;;
 
@@ -52,7 +52,7 @@ while true; do
 
     # Unexpected option
     *)
-      echo "Unexpected option: $1" >&2
+      echo "Error: Unexpected option: $1" >&2
       exit 1
       ;;
 
@@ -65,30 +65,24 @@ done
 
 # === Validate Options ===
 
-if [ -z "$user" ]; then
+if [ -z "$users" ]; then
   echo "Error: -u|--users is required" >&2
   exit 1
 fi
-# Check user exists
-if ! getent passwd "$user" >/dev/null; then
-  echo "Error: user '$user' does not exist" >&2
-  exit 1
-fi
+# Parse JSON into array of usernames
+readarray -t users < <(jq -r '.[]' <<< "$users")
 
 # === Validate Options ===
 
 
 
-# === Change Password ===
+# === Update Hashed Password Files ===
 
-# Let `passwd` handle security and changing "/etc/shadow"
-if ! passwd "$user"; then
-  echo "Error: password was not changed" >&2
-  exit 1
-fi
+# For each user
+for user in "${users[@]}"; do
+  HSH_PASSWD_FILE="${HSH_PASSWD_DIR}/${user}"
+  grep "^${user}:" "/etc/shadow" | cut -d":" -f2 > "$HSH_PASSWD_FILE"
+  chmod 600 "$HSH_PASSWD_FILE"
+done
 
-# Update the hashed password file
-HSH_PASSWD_FILE="${HSH_PASSWD_DIR}/${user}"
-grep "^${user}:" "/etc/shadow" | cut -d":" -f2 > "$HSH_PASSWD_FILE"
-
-# === Change Password ===
+# === Update Hashed Password Files ===

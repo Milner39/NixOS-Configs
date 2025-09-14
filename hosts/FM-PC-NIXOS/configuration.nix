@@ -20,7 +20,6 @@ in
 
     # Add modules
     (import (lib.custom.fromRoot "modules") args)
-    (import ../common/core/default.nix args)
     (import ./hyprland.nix args)
   ];
 

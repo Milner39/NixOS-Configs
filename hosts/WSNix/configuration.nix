@@ -13,7 +13,6 @@ let
 in
 {
   imports = [
-    (import ../common/core/default.nix args)
     (import ../common/optional/wsl.nix args)
     (import ../common/optional/yubikey.nix args)
   ];

@@ -24,7 +24,7 @@ OPTS=$(getopt \
   -l users:   \
   -- "$@"
 ) || {
-  echo "Failed to parse options." >&2
+  echo "Error: Failed to parse options." >&2
   exit 1
 }
 eval set -- "$OPTS"
@@ -52,7 +52,7 @@ while true; do
 
     # Unexpected option
     *)
-      echo "Unexpected option: $1" >&2
+      echo "Error: Unexpected option: $1" >&2
       exit 1
       ;;
 
