@@ -49,7 +49,7 @@
           # unstable = nixpkgs-unstable;
           # allowUnfree = true;
         };
-        # modules = [ ./configuration.nix ];
+        modules = [ ./configuration.nix ];
         specialArgs = { inherit inputs; };
       };
       

@@ -64,7 +64,7 @@ let
 
       "modules" = lib.mkOption {
         description = "A list of NixOS modules to include in the system evaluation.";
-        default = [ ./configuration.nix ];
+        default = [];
         type = lib.types.listOf lib.types.raw;
       };
 
