@@ -46,10 +46,9 @@
         system = "x86_64-linux";
         nixpkgs = {
           stable = nixpkgs;
-          # unstable = nixpkgs-unstable;
-          # allowUnfree = true;
+          unstable = nixpkgs-unstable;
         };
-        modules = [ ./configuration.nix ];
+        modules = [ ./src/configuration.nix ];
         specialArgs = { inherit inputs; };
       };
       
