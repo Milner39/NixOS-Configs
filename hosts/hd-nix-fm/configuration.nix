@@ -67,7 +67,7 @@ in
     # mainline / stable  =  `pkgs.linuxPackages_latest`
     # latest LTS         =  `pkgs.linuxPackages`
     # specific version   =  `pkgs.linuxPackages_X_X`
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxPackages;
   };
 
   # === Kernel ===
