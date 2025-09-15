@@ -4,6 +4,7 @@
 }:
 
 {
+  flake = import ./flake { inherit lib; };
   users = import ./users { inherit lib; };
 
 
