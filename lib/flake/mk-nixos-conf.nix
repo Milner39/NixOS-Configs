@@ -77,12 +77,6 @@ let
         type = lib.types.attrsOf lib.types.raw;
       };
     };
-
-
-    config = {
-      # If no unstable packages were provided, use the stable packages.
-      nixpkgs.unstable = lib.mkDefault config.nixpkgs.stable;
-    };
   };
 
   # === Module ===
@@ -106,9 +100,10 @@ let
     # == Pkgs ===
     system            =  evaled.system;
 
-    nixpkgs           =  evaled.nixpkgs.stable;
-    nixpkgs-unstable  =  evaled.nixpkgs.unstable;
     allowUnfree       =  evaled.nixpkgs.allowUnfree;
+    nixpkgs           =  evaled.nixpkgs.stable;
+    nixpkgs-unstable  =  evaled.nixpkgs.unstable or evaled.nixpkgs.stable;
+    # Fallback to stable packages if unstable packages not provided ^
 
     pkgs              =  import nixpkgs {
       inherit system; config.allowUnfree = allowUnfree;
