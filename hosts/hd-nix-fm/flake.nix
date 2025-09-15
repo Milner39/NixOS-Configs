@@ -54,31 +54,6 @@
       };
       
       # === hd-nix-fm ===
-
-      # # === hd-nix-fm ===
-      
-      # "hd-nix-fm" = let
-      #   hostname = "hd-nix-fm";
-        
-      #   system = "x86_64-linux";
-      #   pkgs = import nixpkgs {
-      #     inherit system;
-      #     config.allowUnfree = true;
-      #   };
-        
-	    #   specialArgs = baseSpecialArgs // { inherit
-      #     hostname;
-      #   };
-
-      # in nixpkgs.lib.nixosSystem {
-      #   inherit system pkgs specialArgs;
-
-      #   modules = [
-      #     ./hosts/hd-nix-fm/configuration.nix
-      #   ];
-      # };
-      
-      # # === hd-nix-fm ===
     };
   };
 }

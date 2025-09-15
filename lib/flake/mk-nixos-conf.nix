@@ -1,17 +1,9 @@
 opts:
 
 let
-  # === Lib ===
-
-  lib = opts.nixpkgs.stable.lib;
-
-  # === Lib ===
-
-
-
   # === Module ===
 
-  module = {config, ...}: {
+  module = {config, lib, ...}: {
     /*
       Defines the types of the `opts` argument for easier docs, setting
       required options or default values, etc.
@@ -40,7 +32,7 @@ let
       "nixpkgs" = lib.mkOption {
         description = "Set nixpkgs versions to use.";
         default = null;
-        type = lib.types.attrsOf (lib.types.submodule {
+        type = lib.types.submodule {
           options = {
             "allowUnfree" = lib.mkOption {
               description = "Whether to include packages whose licenses are marked unfree.";
@@ -51,15 +43,15 @@ let
             "stable" = lib.mkOption {
               description = "The nixpkgs to use when 'stable' pkgs are preferred.";
               default = null;  # required
-              type = lib.types.attrsOf lib.types.anything;
+              type = lib.types.raw;
             };
 
             "unstable" = lib.mkOption {
               description = "The nixpkgs to use when 'unstable' pkgs are preferred.";
-              type = lib.types.attrsOf lib.types.anything;
+              type = lib.types.raw;
             };
           };
-        });
+        };
       };
 
       "modules" = lib.mkOption {
@@ -83,13 +75,21 @@ let
 
 
 
+  # === Lib ===
+
+  lib-base = opts.nixpkgs.stable.lib;
+
+  # === Lib ===
+
+
+
   # === Evaluation ===
 
   /*
     Evaluate the `opts` argument
     Evaluate the `module`
   */
-  evaled = (lib.evalModules {
+  evaled = (lib-base.evalModules {
     modules = [ opts module ];
   }).config;
 
@@ -116,8 +116,8 @@ let
     hostname = evaled.hostname;
     modules = evaled.modules;
 
-    lib-custom = lib.extend (self: super: {
-      custom = import ../../lib { inherit lib; };
+    lib-custom = pkgs.lib.extend (self: super: {
+      custom = import ../../lib { inherit (pkgs) lib; };
     });
 
     specialArgs = evaled.specialArgs // {
@@ -125,7 +125,7 @@ let
       lib = lib-custom;
     };
 
-  in lib.nixosSystem { inherit system pkgs modules specialArgs; };
+  in nixpkgs.lib.nixosSystem { inherit system pkgs modules specialArgs; };
 
   # === Evaluation ===
 
