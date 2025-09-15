@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  pkgs-unstable,
   ...
 } @ args:
 
@@ -22,6 +23,8 @@
     # Use SDDM as display manager
     sddm = {
       enable = true;
+      package = pkgs.plasma5Packages.sddm;
+
       wayland.enable = true;
     };
   };

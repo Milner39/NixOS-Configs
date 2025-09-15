@@ -2,10 +2,11 @@
   config,
   lib,
   pkgs,
+  pkgs-unstable,
 
   # specialArgs
-  inputs,
   hostname,
+  inputs,
   ...
 } @ baseArgs:
 
@@ -94,6 +95,7 @@ in
     # Enable networking
     networkmanager = {
       enable = true;
+      package = pkgs.networkmanager;
 
       # WiFi options
       wifi = {
@@ -134,8 +136,6 @@ in
   users.users = builtins.mapAttrs
     (username: userCfg: userCfg.settings)
     (args.usersData.users);
-
-  # security.sudo.wheelNeedsPassword = false;
 
   # === Users ===
 
@@ -236,7 +236,8 @@ in
     firefox
     brave
 
-    # Other
+    # Other "must-haves"
+    pkgs-unstable.fastfetch
   ];
 
   # Programs
