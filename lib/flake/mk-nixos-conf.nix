@@ -3,7 +3,7 @@ opts:
 let
   # === Lib ===
 
-  lib = opts.nixpkgs.stable;
+  lib = opts.nixpkgs.stable.lib;
 
   # === Lib ===
 
@@ -74,7 +74,7 @@ let
           arguments to the top-level function of every NixOS module.
         '';
         default = {};
-        type = lib.type.attrsOf lib.types.raw;
+        type = lib.types.attrsOf lib.types.raw;
       };
     };
 
@@ -103,6 +103,7 @@ let
   # Create the nixos config
   nixosConfig = let
 
+    # == Pkgs ===
     system            =  evaled.system;
 
     nixpkgs           =  evaled.nixpkgs.stable;
@@ -115,17 +116,18 @@ let
     pkgs-unstable     =  import nixpkgs-unstable {
       inherit system; config.allowUnfree = allowUnfree;
     };
+    # == Pkgs ===
 
+    hostname = evaled.hostname;
     modules = evaled.modules;
 
-    lib = lib.extend (self: super: {
+    lib-custom = lib.extend (self: super: {
       custom = import ../../lib { inherit lib; };
     });
 
-    specialArgs = evaled.specialArgs // { inherit
-      pkgs-unstable
-      lib
-      hostname;
+    specialArgs = evaled.specialArgs // {
+      inherit pkgs-unstable hostname;
+      lib = lib-custom;
     };
 
   in lib.nixosSystem { inherit system pkgs modules specialArgs; };
