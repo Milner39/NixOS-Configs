@@ -238,6 +238,7 @@ in
 
     # Other "must-haves"
     pkgs-unstable.fastfetch
+    pkgs-unstable.btop
   ];
 
   # Programs
