@@ -39,7 +39,7 @@
     hyprpaper
 
     # App launcher
-    rofi
+    rofi-wayland
 
     # Notifications
     mako
