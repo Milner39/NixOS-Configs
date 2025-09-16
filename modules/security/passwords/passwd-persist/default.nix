@@ -1,7 +1,5 @@
 {
-  configRoot,
   lib,
-  pkgs,
   ...
 } @ args:
 
@@ -11,7 +9,7 @@ let
   cfg = configRelative;
 
   # Create args for additional config
-  childArgs = { inherit configRoot configRelative lib pkgs; };
+  childArgs = args // { inherit configRelative; };
 
   # Import additional config
   _scripts = (import ./_scripts childArgs);

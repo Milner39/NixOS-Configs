@@ -1,7 +1,4 @@
 {
-  configRoot,
-  lib,
-  pkgs,
   ...
 } @ args:
 
@@ -10,7 +7,7 @@ let
   configRelative = args.configRelative.video;
 
   # Create args for child-modules
-  childArgs = { inherit configRoot configRelative lib pkgs; };
+  childArgs = args // { inherit configRelative; };
 
   # Import child-modules
   nvidia = (import ./nvidia childArgs);

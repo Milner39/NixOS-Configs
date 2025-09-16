@@ -1,7 +1,6 @@
 {
   configRoot,
   lib,
-  pkgs,
   ...
 } @ args:
 
@@ -72,6 +71,7 @@ in
   # === Config ===
   config = lib.mkIf cfg.enable {
     hardware.nvidia = {
+      package = configRoot.boot.kernelPackages.nvidiaPackages.stable;
       modesetting.enable = cfg.modesetting.enable;
       powerManagement.enable = cfg.powerManagement.enable;
       dynamicBoost.enable = cfg.dynamicBoost.enable;

@@ -1,7 +1,5 @@
 {
   config,
-  lib,
-  pkgs,
   ...
 } @ args:
 
@@ -10,10 +8,7 @@ let
   configRelative = config.modules;
 
   # Create args for child-modules
-  childArgs = {
-    configRoot = config;
-    inherit configRelative lib pkgs;
-  };
+  childArgs = args // { inherit configRelative; configRoot = config; };
 
   # Import child-modules
   hardware = (import ./hardware childArgs);

@@ -236,7 +236,7 @@ in
     firefox
     brave
 
-    # Other "must-haves"
+    # Must haves
     pkgs-unstable.fastfetch
     pkgs-unstable.btop
   ];
