@@ -31,6 +31,7 @@
     flakeTools = import ../../lib/flake {};
 
   in {
+    # sudo nixos-rebuild switch --flake ./hosts/hd-nix-fm --show-trace
     nixosConfigurations = {
       /* Naming Hosts: `<usage><device>-nix-<owner>`
         <usage>   =  h (home), w (work), etc
