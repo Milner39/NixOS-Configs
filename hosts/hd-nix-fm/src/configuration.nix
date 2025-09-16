@@ -21,7 +21,7 @@ in
 
     # Add modules
     (import (lib.custom.fromRoot "modules") args)
-    (import ./hyprland.nix args)
+    (import ./gui args)
   ];
 
 
