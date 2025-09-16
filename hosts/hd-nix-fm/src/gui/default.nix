@@ -4,7 +4,7 @@
 
 {
   imports = [
-    (import ./sddm args)
-    (import ./hyprland args)
-  ]
+    (import ./sddm.nix args)
+    (import ./hyprland.nix args)
+  ];
 }
