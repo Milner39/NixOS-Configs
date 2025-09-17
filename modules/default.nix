@@ -11,14 +11,14 @@ let
   childArgs = args // { inherit configRelative; configRoot = config; };
 
   # Import child-modules
-  hardware = (import ./hardware childArgs);
-  security = (import ./security childArgs);
+  hardware  =  (import ./hardware childArgs);
+  security  =  (import ./security childArgs);
 in
 {
   # === Options ===
   options.modules = {
-    hardware = hardware.options;
-    security = security.options;
+    hardware  =  hardware.options;
+    security  =  security.options;
   };
   # === Options ===
 

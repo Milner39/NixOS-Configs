@@ -10,12 +10,12 @@ let
   childArgs = args // { inherit configRelative; };
 
   # Import child-modules
-  video = (import ./video childArgs);
+  video  =  (import ./video childArgs);
 in
 {
   # === Options ===
   options = {
-    video = video.options;
+    video  =  video.options;
   };
   # === Options ===
 

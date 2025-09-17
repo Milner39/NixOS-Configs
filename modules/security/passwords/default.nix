@@ -10,12 +10,12 @@ let
   childArgs = args // { inherit configRelative; };
 
   # Import child-modules
-  passwd-persist = (import ./passwd-persist childArgs);
+  passwd-persist  =  (import ./passwd-persist childArgs);
 in
 {
   # === Options ===
   options = {
-    passwd-persist = passwd-persist.options;
+    passwd-persist  =  passwd-persist.options;
   };
   # === Options ===
 

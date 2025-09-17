@@ -12,7 +12,7 @@ let
   childArgs = args // { inherit configRelative; };
 
   # Import additional config
-  _scripts = (import ./_scripts childArgs);
+  _scripts  =  (import ./_scripts childArgs);
 in
 {
   # === Options ===

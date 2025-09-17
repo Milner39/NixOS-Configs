@@ -10,12 +10,12 @@ let
   childArgs = args // { inherit configRelative; };
 
   # Import child-modules
-  passwords = (import ./passwords childArgs);
+  passwords  =  (import ./passwords childArgs);
 in
 {
   # === Options ===
   options = {
-    passwords = passwords.options;
+    passwords  =  passwords.options;
   };
   # === Options ===
 

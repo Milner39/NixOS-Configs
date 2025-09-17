@@ -10,12 +10,12 @@ let
   childArgs = args // { inherit configRelative; };
 
   # Import child-modules
-  nvidia = (import ./nvidia childArgs);
+  nvidia  =  (import ./nvidia childArgs);
 in
 {
   # === Options ===
   options = {
-    nvidia = nvidia.options;
+    nvidia  =  nvidia.options;
   };
   # === Options ===
 
