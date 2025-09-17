@@ -41,13 +41,13 @@ let
             };
 
             "stable" = lib.mkOption {
-              description = "The nixpkgs to use when 'stable' pkgs are preferred.";
+              description = "The flake input for nixpkgs: to use when 'stable' pkgs are preferred.";
               default = null;  # required
               type = lib.types.raw;
             };
 
             "unstable" = lib.mkOption {
-              description = "The nixpkgs to use when 'unstable' pkgs are preferred.";
+              description = "The flake input for nixpkgs: to use when 'unstable' pkgs are preferred.";
               type = lib.types.raw;
             };
           };
@@ -116,6 +116,7 @@ let
     hostname = evaled.hostname;
     modules = evaled.modules;
 
+    # Extend lib with lib.custom
     lib-custom = pkgs.lib.extend (self: super: {
       custom = import ../../lib { inherit (pkgs) lib; };
     });
