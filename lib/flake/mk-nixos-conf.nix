@@ -3,7 +3,7 @@ opts:
 let
   # === Module ===
 
-  module = { config, lib, ... }: {
+  module = { lib, ... }: {
     /*
       Defines the types of the `opts` argument for easier docs, setting
       required options or default values, etc.
