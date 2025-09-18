@@ -31,7 +31,7 @@ lib.custom.users.mkUsersData {
         extraGroups = [ "wheel" "networkmanager" ];
 
         # ALWAYS CHANGE AFTER THE USER IS FIRST CREATED!!!
-        initialPassword = "";
+        initialPassword = "tmp";
       };
 
       password = {
