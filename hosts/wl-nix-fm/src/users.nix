@@ -30,6 +30,10 @@ lib.custom.users.mkUsersData {
         isNormalUser = true;
         extraGroups = [ "wheel" "networkmanager" ];
 
+        openssh.authorizedKeys.keys = [
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHGydLwle8HWBT5Y6vuaEK4th4R/2h0Ih+j5WDoERGbD"
+        ];
+
         # ALWAYS CHANGE AFTER THE USER IS FIRST CREATED!!!
         initialPassword = "tmp";
       };
