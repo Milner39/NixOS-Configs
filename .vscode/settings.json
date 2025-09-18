@@ -21,6 +21,8 @@
     "powersave",
     "pulseaudio",
     "rtkit",
+    "rtsx",
+    "sdmmc",
     "stdenv",
     "usbhid",
     "UWSM",
