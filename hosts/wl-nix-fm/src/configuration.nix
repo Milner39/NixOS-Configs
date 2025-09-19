@@ -164,6 +164,18 @@ in
   # === Locale ===
 
 
+  # === Fonts ===
+
+  # modules.fonts.nerd-fonts = {
+  #   # all = true;  # For all NerdFonts
+  #   fonts = nf: with nf; [
+  #     jetbrains-mono
+  #   ];
+  # };
+
+  # === Fonts ===
+
+
   # === Audio ===
 
   services.pulseaudio.enable = false;

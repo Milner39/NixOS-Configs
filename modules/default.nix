@@ -11,12 +11,14 @@ let
   childArgs = args // { inherit configRelative; configRoot = config; };
 
   # Import child-modules
+  fonts     =  (import ./fonts    childArgs);
   hardware  =  (import ./hardware childArgs);
   security  =  (import ./security childArgs);
 in
 {
   # === Options ===
   options.modules = {
+    fonts     =  fonts.options;
     hardware  =  hardware.options;
     security  =  security.options;
   };
@@ -25,6 +27,7 @@ in
 
   # === Imports ===
   imports = [
+    (builtins.removeAttrs fonts [ "options" ])
     (builtins.removeAttrs hardware [ "options" ])
     (builtins.removeAttrs security [ "options" ])
   ];
