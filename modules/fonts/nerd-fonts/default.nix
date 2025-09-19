@@ -10,7 +10,7 @@ let
   configRelative = args.configRelative.nerd-fonts;
   cfg = configRelative;
 
-  pkg = pkgs-unstable;
+  pkg = pkgs-unstable.nerd-fonts;
 in
 {
   # === Options ===
@@ -37,13 +37,13 @@ in
 
   # === Config ===
   config = {
-    packages = (if cfg.all
+    fonts.packages = (if cfg.all
       then builtins.filter (
         (lib.attrsets.isDerivation)
-        (builtins.attrValues pkg.nerd-fonts)
+        (builtins.attrValues pkg)
       )
 
-      else (cfg.fonts pkg.nerd-fonts)
+      else (cfg.fonts pkg)
     );
   };
   # === Config ===
