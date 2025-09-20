@@ -237,7 +237,7 @@ in
     kitty
 
     # Editors
-    vscode
+    vscode.fhs
 
     # Browsers
     firefox
